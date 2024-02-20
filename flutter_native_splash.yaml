@@ -1,0 +1,11 @@
+#flutter_native_splash:
+#color: "#940078"
+#image: assets/icon/Logo J+.png
+
+#android_12:
+#image: assets/icon/Logo J+.png
+#icon_background_color: "#940078"
+
+#android: true
+#ios: true
+#web: true
