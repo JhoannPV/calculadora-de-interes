@@ -1,11 +1,11 @@
-#flutter_native_splash:
-#color: "#940078"
-#image: assets/icon/Logo J+.png
+flutter_native_splash:
+  color: "#013542"
+  image: assets/IconoLogo/InterestCalcLogo.png
 
-#android_12:
-#image: assets/icon/Logo J+.png
-#icon_background_color: "#940078"
+  android_12:
+    image: assets/IconoLogo/InterestCalcLogo.png
+    icon_background_color: "#013542"
 
-#android: true
-#ios: true
-#web: true
+  android: true
+  ios: true
+  web: true
