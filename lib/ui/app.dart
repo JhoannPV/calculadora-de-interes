@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
           title: const Text('Calculadora de Interes'),
         ),
         body: const Center(
-          child: Text('Hello World'),
+          child: Text('Hello World Example'),
         ),
       ),
     );
