@@ -1,0 +1,9 @@
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/IconoLogo/InterestCalcIcono.png"
+  adaptive_icon_background: "assets/IconoLogo/InterestCalcIcono.png"
+  web:
+    generate: true
+    image_path: "assets/IconoLogo/InterestCalcIcono.png"
