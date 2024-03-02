@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       routes: {
         "/home": (context) => const Home(),
         "/simple_interest": (context) => const SimpleInterest(),
-        "/compound_interest": (context) => const CompoundInterest(),
         "/annuities": (context) => const Annuities(),
         "/interest_s": (context) => const InterestS(),
         "/time_interest_s": (context) => const TimeInterestS(),
