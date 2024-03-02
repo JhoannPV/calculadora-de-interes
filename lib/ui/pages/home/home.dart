@@ -55,11 +55,6 @@ class Home extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ButtonOperation(
-                route: "/interest_rates",
-                title: "Tasas de Interes",
-                icon: Icons.calculate_outlined,
-              ),
-              ButtonOperation(
                 route: "/annuities",
                 title: "Anualidades",
                 icon: Icons.calculate,
