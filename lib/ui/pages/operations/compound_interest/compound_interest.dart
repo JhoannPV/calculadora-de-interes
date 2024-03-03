@@ -30,15 +30,15 @@ class _CompoundInterestState extends State<CompoundInterest> {
 
     switch (_selectedTimeBase) {
       case 'Día':
-        rate = 100 / rate; // tasa anual a diaria
+        rate = rate / 100; // tasa anual a diaria
         period = period / 365; // periodo de días a años
         break;
       case 'Mes':
-        rate = 100 / rate; // tasa anual a mensual
+        rate = rate / 100; // tasa anual a mensual
         period = period / 12; // periodo de meses a años
         break;
       case 'Año':
-        rate = 100 / rate; // tasa de porcentaje a decimal
+        rate = rate / 100; // tasa de porcentaje a decimal
         break;
     }
 
@@ -51,7 +51,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Resultado'),
-          content: Text('Monto Compuesto: \$${amount.toStringAsFixed(2)}'),
+          content: Text('Monto Compuesto: \$${amount.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
               child: const Text('Cerrar'),
@@ -81,7 +81,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
         return AlertDialog(
           title: const Text('Resultado'),
           content: Text(
-              'Capital Inicial Requerido: \$${principal.toStringAsFixed(2)}'),
+              'Capital Inicial Requerido: \$${principal.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
               child: const Text('Cerrar'),
@@ -104,11 +104,11 @@ class _CompoundInterestState extends State<CompoundInterest> {
 
     switch (_selectedTimeBase) {
       case 'Día':
-        rate = rate / 365; //tasa anual a diaria
+        rate = rate / 100; //tasa anual a diaria
         period = period / 365; // periodo de días a años
         break;
       case 'Mes':
-        rate = rate / 12; // tasa anual a mensual
+        rate = rate / 100; // tasa anual a mensual
         period = period / 12; // periodo de meses a años
         break;
       case 'Año':
@@ -158,7 +158,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Resultado'),
-          content: Text('Tasa de Interés: ${(rate * 100).toStringAsFixed(2)}%'),
+          content: Text('Tasa de Interés: ${(rate * 100).toStringAsFixed(1)}%'),
           actions: <Widget>[
             TextButton(
               child: const Text('Cerrar'),
