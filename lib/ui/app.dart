@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         "/simple_interest": (context) => const SimpleInterest(),
         "/annuities": (context) => const Annuities(),
         "/interest_s": (context) => const InterestS(),
+        "/compound_interest": (context) => const CompoundInterest(),
         "/time_interest_s": (context) => const TimeInterestS(),
         "/principal_interest_s": (context) => const PrincipalInterestS(),
         "/rate_interest_s": (context) => const RateInterestS(),
