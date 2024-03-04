@@ -31,11 +31,12 @@ class _CompoundInterestState extends State<CompoundInterest> {
     switch (_selectedTimeBase) {
       case 'Día':
         rate = rate / 100; // tasa anual a diaria
-        period = period / 365; // periodo de días a años
+        period = period / 365.25; // periodo de días a años
         break;
       case 'Mes':
         rate = rate / 100; // tasa anual a mensual
         period = period / 12; // periodo de meses a años
+
         break;
       case 'Año':
         rate = rate / 100; // tasa de porcentaje a decimal
@@ -43,7 +44,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
     }
 
     // Formula
-    double amount = principal * math.pow((1 + rate), period);
+    double finalAmount = principal * math.pow((1 + rate), period);
 
     // Mostrar el resultado
     showDialog(
@@ -51,7 +52,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Resultado'),
-          content: Text('Monto Compuesto: \$${amount.toStringAsFixed(1)}'),
+          content: Text('Monto Compuesto: \$${finalAmount.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
               child: const Text('Cerrar'),
@@ -67,12 +68,27 @@ class _CompoundInterestState extends State<CompoundInterest> {
 
   void _calculateInitialCapital() {
     double finalAmount =
-        double.tryParse(_finalAmountController.text) ?? 0.0; // MC
+        double.tryParse(_finalAmountController.text) ?? 0.0; // A
     double rate = double.tryParse(_interestRateController.text) ?? 0.0; // i
     double period = double.tryParse(_periodController.text) ?? 0.0; // n
 
+    switch (_selectedTimeBase) {
+      case 'Día':
+        rate = rate / 100; // tasa anual a diaria
+        period = period / 365.25; // periodo de días a años
+        break;
+      case 'Mes':
+        rate = rate / 100; // tasa anual a mensual
+        period = period / 12; // periodo de meses a años
+
+        break;
+      case 'Año':
+        rate = rate / 100; // tasa de porcentaje a decimal
+        break;
+    }
+
     // Formula
-    double principal = finalAmount / math.pow((1 + rate / 100), period);
+    double principal = finalAmount / math.pow((1 + rate), period);
 
     // Mostrar el resultado
     showDialog(
@@ -96,20 +112,16 @@ class _CompoundInterestState extends State<CompoundInterest> {
   }
 
   void _calculateTime() {
-    double mc = double.tryParse(_finalAmountController.text) ?? 0.0;
-    double c = double.tryParse(_capitalController.text) ?? 0.0;
+    double principal = double.tryParse(_capitalController.text) ?? 0.0;
+    double finalAmount = double.tryParse(_finalAmountController.text) ?? 0.0;
     double rate = double.tryParse(_interestRateController.text) ?? 0.0;
-
-    double period = double.tryParse(_periodController.text) ?? 0.0;
 
     switch (_selectedTimeBase) {
       case 'Día':
-        rate = rate / 100; //tasa anual a diaria
-        period = period / 365; // periodo de días a años
+        rate = rate / 100; // tasa anual a diaria
         break;
       case 'Mes':
         rate = rate / 100; // tasa anual a mensual
-        period = period / 12; // periodo de meses a años
         break;
       case 'Año':
         rate = rate / 100; // tasa de porcentaje a decimal
@@ -117,11 +129,31 @@ class _CompoundInterestState extends State<CompoundInterest> {
     }
 
     // fórmula para calcular el tiempo
-    double logMC = math.log(mc);
-    double logC = math.log(c);
+    double logMC = math.log(finalAmount);
+    double logC = math.log(principal);
     double logRate = math.log(1 + rate);
 
     double time = (logMC - logC) / logRate;
+
+    switch (_selectedTimeBase) {
+      case 'Día':
+        if (_selectedTimeBase == 'mes') {
+          time *= 30; // Convertir días a meses (asumiendo un mes de 30 días)
+        } else {
+          time *=
+              365.25; // Convertir días a años (tomando en cuenta años bisiestos)
+        }
+        break;
+      case 'Mes':
+        if (_selectedTimeBase == 'día') {
+          time /= 30; // Convertir meses a días (asumiendo un mes de 30 días)
+        } else {
+          time *= 12; // Convertir meses a años
+        }
+        break;
+      case 'Año':
+        break;
+    }
 
     // Mostrar el resultado
     showDialog(
@@ -145,12 +177,23 @@ class _CompoundInterestState extends State<CompoundInterest> {
   }
 
   void _calculateInterestRate() {
-    double mc = double.tryParse(_finalAmountController.text) ?? 0.0;
-    double c = double.tryParse(_capitalController.text) ?? 0.0;
+    double principal = double.tryParse(_capitalController.text) ?? 0.0;
+    double finalAmount = double.tryParse(_finalAmountController.text) ?? 0.0;
     double period = double.tryParse(_periodController.text) ?? 0.0;
 
+    switch (_selectedTimeBase) {
+      case 'Día':
+        period = period / 365.25; // periodo de días a años
+        break;
+      case 'Mes':
+        period = period / 12; // periodo de meses a años
+        break;
+      case 'Año':
+        break;
+    }
+
     //  fórmula para calcular la tasa de interés
-    double rate = math.pow(mc / c, 1 / period) - 1;
+    double rate = math.pow(finalAmount / principal, 1 / period) - 1;
 
     // Mostrar el resultado
     showDialog(
