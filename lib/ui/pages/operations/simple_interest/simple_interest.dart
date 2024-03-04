@@ -25,6 +25,18 @@ class _SimpleInterestState extends State<SimpleInterest> {
   double? rate = 0.0;
   double? time = 0.0;
   int optionAnnuity = 0;
+
+  @override
+  void dispose() {
+    principalController.dispose();
+    amountController.dispose();
+    rateController.dispose();
+    timeDayController.dispose();
+    timeMonthController.dispose();
+    timeYearController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -24,6 +24,20 @@ class _AnnuitiesState extends State<Annuities> {
   double? result = 0.0;
   bool? switchVFVA = false;
   int optionAnnuity = 0;
+
+  @override
+  void dispose() {
+    annuityController.dispose();
+    rateController.dispose();
+    timeDayController.dispose();
+    timeMonthController.dispose();
+    timeYearController.dispose();
+    deferTimeDayController.dispose();
+    deferTimeMonthController.dispose();
+    deferTimeYearController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:get/get.dart';
+
 class CompoundInterest extends StatefulWidget {
   const CompoundInterest({super.key});
 
@@ -56,7 +58,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
             TextButton(
               child: const Text('Cerrar'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
@@ -86,7 +88,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
             TextButton(
               child: const Text('Cerrar'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
@@ -130,12 +132,12 @@ class _CompoundInterestState extends State<CompoundInterest> {
         return AlertDialog(
           title: const Text('Resultado'),
           content: Text(
-              'Tiempo: ${time.toStringAsFixed(2)} ${_selectedTimeBase.toLowerCase()}'),
+              'Tiempo: ${time.toStringAsFixed(1)} ${time == 1.0 ? "año" : "años"}'),
           actions: <Widget>[
             TextButton(
               child: const Text('Cerrar'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
@@ -150,7 +152,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
     double period = double.tryParse(_periodController.text) ?? 0.0;
 
     //  fórmula para calcular la tasa de interés
-    double rate = math.pow(mc / c, 1 / period) - 1;
+    double rate = math.pow((mc / c), (1 / period)) - 1;
 
     // Mostrar el resultado
     showDialog(
@@ -163,7 +165,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
             TextButton(
               child: const Text('Cerrar'),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
           ],
