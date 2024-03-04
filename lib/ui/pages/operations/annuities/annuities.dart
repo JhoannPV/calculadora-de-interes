@@ -122,6 +122,7 @@ class _AnnuitiesState extends State<Annuities> {
                         controller: annuityController,
                         decoration: const InputDecoration(
                           labelText: 'Anualidad',
+                          icon: Icon(Icons.monetization_on),
                         ),
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -135,6 +136,7 @@ class _AnnuitiesState extends State<Annuities> {
                         controller: rateController,
                         decoration: const InputDecoration(
                           labelText: 'Interes (%)',
+                          icon: Icon(Icons.percent),
                         ),
                         keyboardType: TextInputType.number,
                         validator: (value) {
@@ -147,15 +149,16 @@ class _AnnuitiesState extends State<Annuities> {
                       optionAnnuity == 3
                           ? const SizedBox()
                           : Time(
-                              timeYearController: timeYearController,
-                              timeMonthController: timeMonthController,
-                              timeDayController: timeDayController),
+                              title: 'Tiempo',
+                              yearController: timeYearController,
+                              monthController: timeMonthController,
+                              dayController: timeDayController),
                       optionAnnuity == 2
-                          ? Diferred(
-                              deferTimeYearController: deferTimeYearController,
-                              deferTimeMonthController:
-                                  deferTimeMonthController,
-                              deferTimeDayController: deferTimeDayController)
+                          ? Time(
+                              title: 'Diferido',
+                              yearController: deferTimeYearController,
+                              monthController: deferTimeMonthController,
+                              dayController: deferTimeDayController)
                           : const SizedBox(),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
@@ -422,89 +425,47 @@ class _AnnuitiesState extends State<Annuities> {
 class Time extends StatelessWidget {
   const Time({
     super.key,
-    required this.timeYearController,
-    required this.timeMonthController,
-    required this.timeDayController,
+    required this.title,
+    required this.yearController,
+    required this.monthController,
+    required this.dayController,
   });
-
-  final TextEditingController timeYearController;
-  final TextEditingController timeMonthController;
-  final TextEditingController timeDayController;
+  final String title;
+  final TextEditingController yearController;
+  final TextEditingController monthController;
+  final TextEditingController dayController;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: Text('Tiempo',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Text(title,
+              style:
+                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
         TextFormField(
-          controller: timeYearController,
+          controller: yearController,
           decoration: const InputDecoration(
             labelText: 'Años',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
         TextField(
-          controller: timeMonthController,
+          controller: monthController,
           decoration: const InputDecoration(
             labelText: 'Meses',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
         TextFormField(
-          controller: timeDayController,
+          controller: dayController,
           decoration: const InputDecoration(
             labelText: 'Días',
-          ),
-          keyboardType: TextInputType.number,
-        ),
-      ],
-    );
-  }
-}
-
-class Diferred extends StatelessWidget {
-  const Diferred({
-    super.key,
-    required this.deferTimeYearController,
-    required this.deferTimeMonthController,
-    required this.deferTimeDayController,
-  });
-
-  final TextEditingController deferTimeYearController;
-  final TextEditingController deferTimeMonthController;
-  final TextEditingController deferTimeDayController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: Text('Diferido',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        ),
-        TextFormField(
-          controller: deferTimeYearController,
-          decoration: const InputDecoration(
-            labelText: 'Años',
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextField(
-          controller: deferTimeMonthController,
-          decoration: const InputDecoration(
-            labelText: 'Meses',
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextFormField(
-          controller: deferTimeDayController,
-          decoration: const InputDecoration(
-            labelText: 'Días',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
