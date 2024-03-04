@@ -129,6 +129,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               controller: principalController,
                               decoration: const InputDecoration(
                                 labelText: 'Valor Presente o Capital Inicial',
+                                icon: Icon(Icons.monetization_on),
                               ),
                               keyboardType: TextInputType.number,
                               validator: (value) {
@@ -146,6 +147,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               controller: amountController,
                               decoration: const InputDecoration(
                                 labelText: 'Valor Futuro o Monto Final',
+                                icon: Icon(Icons.monetization_on),
                               ),
                               keyboardType: TextInputType.number,
                               validator: (value) {
@@ -162,6 +164,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               controller: rateController,
                               decoration: const InputDecoration(
                                 labelText: 'Interes (%)',
+                                icon: Icon(Icons.percent),
                               ),
                               keyboardType: TextInputType.number,
                               validator: (value) {
@@ -354,6 +357,7 @@ class Time extends StatelessWidget {
           controller: timeYearController,
           decoration: const InputDecoration(
             labelText: 'Años',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
@@ -361,6 +365,7 @@ class Time extends StatelessWidget {
           controller: timeMonthController,
           decoration: const InputDecoration(
             labelText: 'Meses',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
@@ -368,6 +373,7 @@ class Time extends StatelessWidget {
           controller: timeDayController,
           decoration: const InputDecoration(
             labelText: 'Días',
+            icon: Icon(Icons.calendar_today),
           ),
           keyboardType: TextInputType.number,
         ),
