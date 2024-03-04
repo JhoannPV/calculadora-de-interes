@@ -22,7 +22,7 @@ class CalculateSimpleInterest extends GetxController {
       required double rate,
       double timeDay = 0,
       double timeMonth = 0,
-      required double timeYear}) {
+      double timeYear = 0}) {
     rate = rate / 100;
     timeDay = (timeDay / 365);
     timeMonth = (timeMonth / 12);
@@ -46,7 +46,7 @@ class CalculateSimpleInterest extends GetxController {
       {required double rate,
       double timeDay = 0,
       double timeMonth = 0,
-      required double timeYear,
+      double timeYear = 0,
       required double amount}) {
     rate = rate / 100;
     timeDay = (timeDay / 365);
@@ -60,15 +60,13 @@ class CalculateSimpleInterest extends GetxController {
       {required double principal,
       double timeDay = 0,
       double timeMonth = 0,
-      required double timeYear,
+      double timeYear = 0,
       required double amount}) {
     timeDay = (timeDay / 365);
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
-    rate.value = double.parse(
-        (((amount - principal) / (principal * timeYear)).toStringAsFixed(1)));
     rate.value = (amount - principal) / (principal * timeYear);
-    rate2.value = rate.value! * 100;
+    rate2.value = double.parse((rate.value! * 100).toStringAsFixed(1));
   }
 
   void calculateInterest({
