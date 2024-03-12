@@ -21,6 +21,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
     'Tiempo',
     'Tasa de Interés'
   ];
+
   String _selectedCalculation = 'Interés Compuesto';
 
   void _calculateCompoundInterest() {
