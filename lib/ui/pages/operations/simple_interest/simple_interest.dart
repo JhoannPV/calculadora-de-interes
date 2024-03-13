@@ -48,6 +48,16 @@ class _SimpleInterestState extends State<SimpleInterest> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
+                const ExpansionTile(
+                  title: Text('¿Qué es el interés simple?'),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                          'El interes simple es el interes que se paga sobre el capital inicial durante un periodo de tiempo determinado. El interes simple se calcula multiplicando el capital inicial por la tasa de interes y el tiempo en años.'),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
                   child: CarouselSlider(
