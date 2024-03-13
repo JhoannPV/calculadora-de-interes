@@ -25,6 +25,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
   double? rate = 0.0;
   double? time = 0.0;
   int optionAnnuity = 0;
+  int selectedOption = 0;
 
   @override
   void dispose() {
@@ -58,76 +59,85 @@ class _SimpleInterestState extends State<SimpleInterest> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      height: 30,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          optionAnnuity = index;
-                        });
-                      },
+                const SizedBox(height: 20),
+                ExpansionTile(
+                  title: const Text('Fórmula'),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: getFormula(selectedOption),
                     ),
-                    items: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Interes Simple y Monto',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Tasa de Interes',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Tiempo',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Capital Inicial',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Monto - Capital = Interes',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      )
-                    ].map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return i;
-                        },
-                      );
-                    }).toList(),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 30,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        optionAnnuity = index;
+                        selectedOption = index;
+                      });
+                    },
                   ),
+                  items: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Interes Simple y Monto',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Tasa de Interes',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Tiempo',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Capital Inicial',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Monto - Capital = Interes',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    )
+                  ].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return i;
+                      },
+                    );
+                  }).toList(),
                 ),
                 Form(
                   key: _keyForm,
@@ -316,6 +326,28 @@ class _SimpleInterestState extends State<SimpleInterest> {
             ),
           ),
         ));
+  }
+
+  Widget getFormula(int selectedOption) {
+    switch (selectedOption) {
+      case 0:
+        return Image.asset('assets/formula/interesSimple.jpg');
+      case 1:
+        return Image.asset('assets/formula/TasaInteresSimple.jpg');
+      case 2:
+        return Image.asset('assets/formula/TiempoSimple.jpg');
+      case 3:
+        return Image.asset('assets/formula/ValorPreSimple.jpg');
+      case 4:
+        return Column(
+          children: [
+            Image.asset('assets/formula/InteresSimple=valorF.jpg'),
+            Image.asset('assets/formula/InteresSimple=valorF2.jpg'),
+          ],
+        );
+      default:
+        return const SizedBox(); // Retorna un widget vacío si la opción no es válida
+    }
   }
 }
 
