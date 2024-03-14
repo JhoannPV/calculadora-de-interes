@@ -28,12 +28,12 @@ class ButtonOperation extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 50, color: Colors.blue),
+                Icon(icon, size: 50, color: const Color(0xFF013542)),
                 Text(title,
                     style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 20, 102, 168)),
+                        color: Color.fromARGB(255, 9, 85, 104)),
                     textAlign: TextAlign.center),
               ],
             ),

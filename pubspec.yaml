@@ -66,6 +66,7 @@ flutter:
   assets:
     - assets/IconoLogo/InterestCalcIcono.png
     - assets/IconoLogo/InterestCalcLogo.png
+    - assets/formula/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

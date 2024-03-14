@@ -21,6 +21,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
     'Tiempo',
     'Tasa de Interés'
   ];
+
   String _selectedCalculation = 'Interés Compuesto';
 
   void _calculateCompoundInterest() {
@@ -55,7 +56,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
           content: Text('Monto Compuesto: \$${finalAmount.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -100,7 +102,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
               'Capital Inicial Requerido: \$${principal.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -165,7 +168,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
               'Tiempo: ${time.toStringAsFixed(2)} ${_selectedTimeBase.toLowerCase()}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -224,16 +228,64 @@ class _CompoundInterestState extends State<CompoundInterest> {
     super.dispose();
   }
 
+  Widget getFormulaImage() {
+    String imagePath;
+    switch (_selectedCalculation) {
+      case 'Interés Compuesto':
+        imagePath = 'assets/formula/MontoCompuesto.png';
+        break;
+      case 'Capital Inicial':
+        imagePath = 'assets/formula/Capital_inicial.png';
+        break;
+      case 'Tiempo':
+        imagePath = 'assets/formula/TiempoCompuesto.png';
+        break;
+      case 'Tasa de Interés':
+        imagePath = 'assets/formula/TasaInteresCompuesto.png';
+        break;
+      default:
+        imagePath =
+            ''; // Considera definir una imagen por defecto o manejar este caso de manera adecuada
+    }
+    return imagePath.isNotEmpty
+        ? Image.asset(imagePath)
+        : Container(); // Retorna un Container vacío si no hay imagePath definido
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Interés Compuesto'),
+        backgroundColor: const Color(0xFF013542),
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
+            const ExpansionTile(
+              title: Text('¿Qué es el Interés Compuesto?'),
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'El interés compuesto se refiere al proceso de generar interés sobre el interés acumulado anteriormente, '
+                    'además del principal durante un período de tiempo. Es una fuerza poderosa para el crecimiento del capital '
+                    'ya que los intereses se calculan sobre el saldo acumulado del capital y los intereses previos, no solo '
+                    'sobre el capital inicial.',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+            ExpansionTile(
+              title: const Text('Fórmula'),
+              children: <Widget>[
+                ListTile(
+                  title: getFormulaImage(),
+                ),
+              ],
+            ),
             if (_selectedCalculation !=
                 'Capital Inicial') // Muestra este campo para todas las opciones excepto 'Capital Inicial'
               TextFormField(
@@ -285,7 +337,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
             const SizedBox(height: 20),
             DropdownButton<String>(
               value: _selectedTimeBase,
-              icon: const Icon(Icons.arrow_downward),
+              icon: const Icon(Icons.keyboard_arrow_down),
               onChanged: (String? newValue) {
                 setState(() {
                   _selectedTimeBase = newValue!;
@@ -301,7 +353,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
             const SizedBox(height: 20),
             DropdownButton<String>(
               value: _selectedCalculation,
-              icon: const Icon(Icons.arrow_downward),
+              icon: const Icon(Icons.keyboard_arrow_down),
               onChanged: (String? newValue) {
                 setState(() {
                   _selectedCalculation = newValue!;
@@ -317,6 +369,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF013542)),
               onPressed: _selectedCalculation == 'Interés Compuesto'
                   ? _calculateCompoundInterest
                   : _selectedCalculation == 'Capital Inicial'
@@ -324,7 +378,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
                       : _selectedCalculation == 'Tiempo'
                           ? _calculateTime
                           : _calculateInterestRate,
-              child: const Text('Calcular'),
+              child:
+                  const Text('Calcular', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),

@@ -25,6 +25,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
   double? rate = 0.0;
   double? time = 0.0;
   int optionIntSimpleOp = 0;
+  int selectedOption = 0;
 
   @override
   void dispose() {
@@ -42,82 +43,103 @@ class _SimpleInterestState extends State<SimpleInterest> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Interes Simple'),
+          backgroundColor: const Color(0xFF013542),
+          foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: CarouselSlider(
-                    options: CarouselOptions(
-                      height: 30,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          optionIntSimpleOp = index;
-                        });
-                      },
+                const ExpansionTile(
+                  title: Text('¿Qué es el interés simple?'),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                          'El interes simple es el interes que se paga sobre el capital inicial durante un periodo de tiempo determinado. El interes simple se calcula multiplicando el capital inicial por la tasa de interes y el tiempo en años.'),
                     ),
-                    items: [
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Interes Simple y Monto',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Tasa de Interes',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Tiempo',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Capital Inicial',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      ),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.arrow_left),
-                          Text('Monto - Capital = Interes',
-                              style: TextStyle(
-                                  fontSize: 17, fontWeight: FontWeight.bold)),
-                          Icon(Icons.arrow_right),
-                        ],
-                      )
-                    ].map((i) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return i;
-                        },
-                      );
-                    }).toList(),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                ExpansionTile(
+                  title: const Text('Fórmula'),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: getFormula(selectedOption),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 30,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        optionIntSimpleOp = index;
+                        selectedOption = index;
+                      });
+                    },
                   ),
+                  items: [
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Interes Simple y Monto',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Tasa de Interes',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Tiempo',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Capital Inicial',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_left),
+                        Text('Monto - Capital = Interes',
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold)),
+                        Icon(Icons.arrow_right),
+                      ],
+                    )
+                  ].map((i) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return i;
+                      },
+                    );
+                  }).toList(),
                 ),
                 Form(
                   key: _keyForm,
@@ -183,6 +205,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF013542)),
                           onPressed: () {
                             if (_keyForm.currentState!.validate()) {
                               if (optionIntSimpleOp == 0) {
@@ -265,7 +289,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               csi.clearValues();
                             }
                           },
-                          child: const Text('Calcular'),
+                          child: const Text('Calcular',
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ],
@@ -306,6 +331,29 @@ class _SimpleInterestState extends State<SimpleInterest> {
             ),
           ),
         ));
+  }
+
+  Widget getFormula(int selectedOption) {
+    switch (selectedOption) {
+      case 0:
+        return Column(
+          children: [
+            Image.asset('assets/formula/interesSimple.jpg', height: 80),
+            Image.asset('assets/formula/MontoSimple.jpg', height: 80),
+          ],
+        );
+      case 1:
+        return Image.asset('assets/formula/TasaInteresSimple.jpg');
+      case 2:
+        return Image.asset('assets/formula/TiempoSimple.jpg');
+      case 3:
+        return Image.asset('assets/formula/ValorPreSimple.jpg');
+      case 4:
+        return Image.asset('assets/formula/InteresSimple=valorF.jpg');
+
+      default:
+        return const SizedBox(); // Retorna un widget vacío si la opción no es válida
+    }
   }
 }
 
