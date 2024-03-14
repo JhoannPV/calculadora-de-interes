@@ -24,7 +24,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
   double? principal = 0.0;
   double? rate = 0.0;
   double? time = 0.0;
-  int optionAnnuity = 0;
+  int optionIntSimpleOp = 0;
 
   @override
   void dispose() {
@@ -55,7 +55,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                       height: 30,
                       onPageChanged: (index, reason) {
                         setState(() {
-                          optionAnnuity = index;
+                          optionIntSimpleOp = index;
                         });
                       },
                     ),
@@ -123,7 +123,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                   key: _keyForm,
                   child: Column(
                     children: [
-                      optionAnnuity == 3
+                      optionIntSimpleOp == 3
                           ? const SizedBox()
                           : TextFormField(
                               controller: principalController,
@@ -139,10 +139,10 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 return null;
                               },
                             ),
-                      optionAnnuity == 2 ||
-                              optionAnnuity == 1 ||
-                              optionAnnuity == 3 ||
-                              optionAnnuity == 4
+                      optionIntSimpleOp == 2 ||
+                              optionIntSimpleOp == 1 ||
+                              optionIntSimpleOp == 3 ||
+                              optionIntSimpleOp == 4
                           ? TextFormField(
                               controller: amountController,
                               decoration: const InputDecoration(
@@ -158,7 +158,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               },
                             )
                           : const SizedBox(),
-                      optionAnnuity == 1 || optionAnnuity == 4
+                      optionIntSimpleOp == 1 || optionIntSimpleOp == 4
                           ? const SizedBox()
                           : TextFormField(
                               controller: rateController,
@@ -174,7 +174,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 return null;
                               },
                             ),
-                      optionAnnuity == 2 || optionAnnuity == 4
+                      optionIntSimpleOp == 2 || optionIntSimpleOp == 4
                           ? const SizedBox()
                           : Time(
                               timeYearController: timeYearController,
@@ -185,7 +185,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                         child: ElevatedButton(
                           onPressed: () {
                             if (_keyForm.currentState!.validate()) {
-                              if (optionAnnuity == 0) {
+                              if (optionIntSimpleOp == 0) {
                                 csi.calculateSimpleInterest(
                                     principal:
                                         double.parse(principalController.text),
@@ -205,7 +205,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                   amount = csi.getAmount();
                                   interest = csi.getSimpleInterest();
                                 });
-                              } else if (optionAnnuity == 1) {
+                              } else if (optionIntSimpleOp == 1) {
                                 csi.calculateRate(
                                     principal:
                                         double.parse(principalController.text),
@@ -224,7 +224,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 setState(() {
                                   rate = csi.getRate2();
                                 });
-                              } else if (optionAnnuity == 2) {
+                              } else if (optionIntSimpleOp == 2) {
                                 csi.calculateTime(
                                     principal:
                                         double.parse(principalController.text),
@@ -234,7 +234,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 setState(() {
                                   time = csi.getTime();
                                 });
-                              } else if (optionAnnuity == 3) {
+                              } else if (optionIntSimpleOp == 3) {
                                 csi.calculatePrincipal(
                                     amount: double.parse(amountController.text),
                                     rate: double.parse(rateController.text),
@@ -252,7 +252,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 setState(() {
                                   principal = csi.getPrincipal();
                                 });
-                              } else if (optionAnnuity == 4) {
+                              } else if (optionIntSimpleOp == 4) {
                                 csi.calculateInterest(
                                     principal:
                                         double.parse(principalController.text),
@@ -276,26 +276,26 @@ class _SimpleInterestState extends State<SimpleInterest> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        optionAnnuity == 0 && interest != 0 && amount != 0
+                        optionIntSimpleOp == 0 && interest != 0 && amount != 0
                             ? SimpleInterestAmountResult(
                                 interest: interest, amount: amount)
                             : const SizedBox(),
-                        optionAnnuity == 1 && rate != 0
+                        optionIntSimpleOp == 1 && rate != 0
                             ? Text('Tasa de Interes: $rate %',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold))
                             : const SizedBox(),
-                        optionAnnuity == 2 && time != 0
+                        optionIntSimpleOp == 2 && time != 0
                             ? Text('Tiempo: $time años',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold))
                             : const SizedBox(),
-                        optionAnnuity == 3 && principal != 0
+                        optionIntSimpleOp == 3 && principal != 0
                             ? Text('Capital Inicial: $principal',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold))
                             : const SizedBox(),
-                        optionAnnuity == 4 && interest != 0
+                        optionIntSimpleOp == 4 && interest != 0
                             ? Text('Interes Simple: $interest',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold))
