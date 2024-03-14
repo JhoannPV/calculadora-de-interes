@@ -43,6 +43,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Interes Simple'),
+          backgroundColor: const Color(0xFF013542),
+          foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -203,6 +205,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF013542)),
                           onPressed: () {
                             if (_keyForm.currentState!.validate()) {
                               if (optionAnnuity == 0) {
@@ -285,7 +289,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
                               csi.clearValues();
                             }
                           },
-                          child: const Text('Calcular'),
+                          child: const Text('Calcular',
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ],
@@ -331,7 +336,12 @@ class _SimpleInterestState extends State<SimpleInterest> {
   Widget getFormula(int selectedOption) {
     switch (selectedOption) {
       case 0:
-        return Image.asset('assets/formula/interesSimple.jpg');
+        return Column(
+          children: [
+            Image.asset('assets/formula/interesSimple.jpg', height: 80),
+            Image.asset('assets/formula/MontoSimple.jpg', height: 80),
+          ],
+        );
       case 1:
         return Image.asset('assets/formula/TasaInteresSimple.jpg');
       case 2:
@@ -339,12 +349,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
       case 3:
         return Image.asset('assets/formula/ValorPreSimple.jpg');
       case 4:
-        return Column(
-          children: [
-            Image.asset('assets/formula/InteresSimple=valorF.jpg'),
-            Image.asset('assets/formula/InteresSimple=valorF2.jpg'),
-          ],
-        );
+        return Image.asset('assets/formula/InteresSimple=valorF.jpg');
+
       default:
         return const SizedBox(); // Retorna un widget vacío si la opción no es válida
     }

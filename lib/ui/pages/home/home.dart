@@ -1,4 +1,3 @@
-import 'package:calculadora_de_interes/ui/colors/colors.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/button_operation.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorsUI.backgroundMenu,
+      backgroundColor: const Color.fromARGB(255, 170, 201, 209),
       body: SingleChildScrollView(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -19,7 +18,7 @@ class Home extends StatelessWidget {
               width: double.infinity,
               height: 120,
               alignment: Alignment.center,
-              color: Colors.blue,
+              color: const Color(0xFF013542),
               child: const Column(
                 children: [
                   Padding(
