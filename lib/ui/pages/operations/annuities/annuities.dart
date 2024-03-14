@@ -24,7 +24,7 @@ class _AnnuitiesState extends State<Annuities> {
   double? result = 0.0;
   bool? switchVFVA = false;
   int optionAnnuity = 0;
-  int SelectedOption = 0;
+  int selectedOption = 0;
 
   @override
   void dispose() {
@@ -44,6 +44,8 @@ class _AnnuitiesState extends State<Annuities> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Anualidades'),
+          backgroundColor: const Color(0xFF013542),
+          foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -63,7 +65,7 @@ class _AnnuitiesState extends State<Annuities> {
                 ExpansionTile(title: const Text('Formula'), children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: getFormula(SelectedOption),
+                    child: getFormula(selectedOption),
                   ),
                 ]),
                 const SizedBox(height: 20),
@@ -73,7 +75,7 @@ class _AnnuitiesState extends State<Annuities> {
                     onPageChanged: (index, reason) {
                       setState(() {
                         optionAnnuity = index;
-                        SelectedOption = index;
+                        selectedOption = index;
                       });
                     },
                   ),
@@ -178,6 +180,8 @@ class _AnnuitiesState extends State<Annuities> {
                           : Padding(
                               padding: const EdgeInsets.only(right: 4),
                               child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF013542)),
                                 onPressed: () {
                                   if (_keyForm.currentState!.validate()) {
                                     if (optionAnnuity == 0) {
@@ -275,12 +279,15 @@ class _AnnuitiesState extends State<Annuities> {
                                     }
                                   }
                                 },
-                                child: const Text('Calcular Monto Final'),
+                                child: const Text('Calcular Monto Final',
+                                    style: TextStyle(color: Colors.white)),
                               ),
                             ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4),
                         child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF013542)),
                           onPressed: () {
                             if (_keyForm.currentState!.validate()) {
                               if (optionAnnuity == 0) {
@@ -372,7 +379,8 @@ class _AnnuitiesState extends State<Annuities> {
                               }
                             }
                           },
-                          child: const Text('Calcular Valor Actual'),
+                          child: const Text('Calcular Valor Actual',
+                              style: TextStyle(color: Colors.white)),
                         ),
                       ),
                     ],
@@ -402,15 +410,28 @@ class _AnnuitiesState extends State<Annuities> {
   Widget getFormula(int selectedOption) {
     switch (selectedOption) {
       case 0:
-        return Image.asset('assets/formula/InteresSimpleC.png');
+        return Column(
+          children: [
+            Image.asset('assets/formula/anualidad_ordinaria_vp.jpg'),
+            Image.asset('assets/formula/anualidad_ordinaria_vf.jpg'),
+          ],
+        );
       case 1:
-        return Image.asset('assets/images/interes_simple.png');
+        return Column(
+          children: [
+            Image.asset('assets/formula/anualidad_anticipada_vp.jpg'),
+            Image.asset('assets/formula/anualidad_anticipada_vf.jpg'),
+          ],
+        );
       case 2:
-        return Image.asset('assets/images/interes_simple.png');
+        return Column(
+          children: [
+            Image.asset('assets/formula/anualidad_diferida_vp.jpg'),
+            Image.asset('assets/formula/anualidad_diferida_vf.jpg'),
+          ],
+        );
       case 3:
-        return Image.asset('assets/images/interes_simple.png');
-      case 4:
-        return Image.asset('assets/images/interes_simple.png');
+        return Image.asset('assets/formula/anualidad_perpetua_vp.jpg');
       default:
         return const SizedBox(); // Retorna un widget vacío si la opción no es válida
     }

@@ -56,7 +56,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
           content: Text('Monto Compuesto: \$${finalAmount.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -101,7 +102,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
               'Capital Inicial Requerido: \$${principal.toStringAsFixed(1)}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -166,7 +168,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
               'Tiempo: ${time.toStringAsFixed(2)} ${_selectedTimeBase.toLowerCase()}'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cerrar'),
+              child: const Text('Cerrar',
+                  style: TextStyle(color: Color(0xFF013542))),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -254,6 +257,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Interés Compuesto'),
+        backgroundColor: const Color(0xFF013542),
+        foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -364,6 +369,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
             ),
             const SizedBox(height: 20),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF013542)),
               onPressed: _selectedCalculation == 'Interés Compuesto'
                   ? _calculateCompoundInterest
                   : _selectedCalculation == 'Capital Inicial'
@@ -371,7 +378,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
                       : _selectedCalculation == 'Tiempo'
                           ? _calculateTime
                           : _calculateInterestRate,
-              child: const Text('Calcular'),
+              child:
+                  const Text('Calcular', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
