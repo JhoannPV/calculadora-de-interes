@@ -1,4 +1,5 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_annuities.dart';
+import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,6 +48,7 @@ class _AnnuitiesState extends State<Annuities> {
           backgroundColor: const Color(0xFF013542),
           foregroundColor: Colors.white,
         ),
+        floatingActionButton: const BusinessDays(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
