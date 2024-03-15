@@ -1,9 +1,11 @@
 import 'dart:math';
+import 'package:calculadora_de_interes/domain/controller/data/data.dart';
 import 'package:get/get.dart';
 
 class CalculateAnnuities extends GetxController {
   Rxn<double> amount = Rxn<double>(0.0);
   Rxn<double> principal = Rxn<double>(0.0);
+  Data data = Get.find();
 
   void clearValues() {
     amount.value = 0.0;
@@ -17,7 +19,7 @@ class CalculateAnnuities extends GetxController {
       double timeMonth = 0,
       double timeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     amount.value = double.parse(
@@ -32,7 +34,7 @@ class CalculateAnnuities extends GetxController {
       double timeMonth = 0,
       double timeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     principal.value = double.parse(
@@ -47,7 +49,7 @@ class CalculateAnnuities extends GetxController {
       double timeMonth = 0,
       double timeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     amount.value = double.parse(
@@ -62,7 +64,7 @@ class CalculateAnnuities extends GetxController {
       double timeMonth = 0,
       double timeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     principal.value = double.parse(
@@ -80,9 +82,9 @@ class CalculateAnnuities extends GetxController {
       double deferTimeMonth = 0,
       double deferTimeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
-    deferTimeDay = (deferTimeDay / 365);
+    deferTimeDay = (deferTimeDay / data.getDays.value!.toDouble());
     deferTimeMonth = (deferTimeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     deferTimeYear = deferTimeYear + deferTimeDay + deferTimeMonth;
@@ -102,9 +104,9 @@ class CalculateAnnuities extends GetxController {
       double deferTimeMonth = 0,
       double deferTimeYear = 0}) {
     rate = rate / 100;
-    timeDay = (timeDay / 365);
+    timeDay = (timeDay / data.getDays.value!.toDouble());
     timeMonth = (timeMonth / 12);
-    deferTimeDay = (deferTimeDay / 365);
+    deferTimeDay = (deferTimeDay / data.getDays.value!.toDouble());
     deferTimeMonth = (deferTimeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     deferTimeYear = deferTimeYear + deferTimeDay + deferTimeMonth;

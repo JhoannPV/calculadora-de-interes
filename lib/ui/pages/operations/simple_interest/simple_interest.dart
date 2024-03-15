@@ -1,4 +1,5 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_simple_interest.dart';
+import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class SimpleInterest extends StatefulWidget {
 
 class _SimpleInterestState extends State<SimpleInterest> {
   final _keyForm = GlobalKey<FormState>();
+  TextEditingController simpleInterestController = TextEditingController();
   TextEditingController principalController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController rateController = TextEditingController();
@@ -26,6 +28,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
   double? time = 0.0;
   int optionIntSimpleOp = 0;
   int selectedOption = 0;
+  int optionAmountorInterestS = 0;
 
   @override
   void dispose() {
@@ -46,6 +49,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
           backgroundColor: const Color(0xFF013542),
           foregroundColor: Colors.white,
         ),
+        floatingActionButton: const BusinessDays(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
@@ -161,10 +165,83 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 return null;
                               },
                             ),
+                      optionIntSimpleOp == 1 ||
+                              optionIntSimpleOp == 2 ||
+                              optionIntSimpleOp == 3
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  height: 30,
+                                  onPageChanged: (index, reason) {
+                                    setState(() {
+                                      optionAmountorInterestS = index;
+                                    });
+                                  },
+                                ),
+                                items: [
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.arrow_left),
+                                      Text('Monto Final',
+                                          style: TextStyle(fontSize: 17)),
+                                      Icon(Icons.arrow_right),
+                                    ],
+                                  ),
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.arrow_left),
+                                      Text('Interes Simple',
+                                          style: TextStyle(fontSize: 17)),
+                                      Icon(Icons.arrow_right),
+                                    ],
+                                  ),
+                                ].map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return i;
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : const SizedBox(),
                       optionIntSimpleOp == 2 ||
                               optionIntSimpleOp == 1 ||
-                              optionIntSimpleOp == 3 ||
-                              optionIntSimpleOp == 4
+                              optionIntSimpleOp == 3
+                          ? optionAmountorInterestS == 0
+                              ? TextFormField(
+                                  controller: amountController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Valor Futuro o Monto Final',
+                                    icon: Icon(Icons.monetization_on),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Digite el valor del Monto Final';
+                                    }
+                                    return null;
+                                  },
+                                )
+                              : TextFormField(
+                                  controller: simpleInterestController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Interes Simple',
+                                    icon: Icon(Icons.monetization_on_outlined),
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Digite el valor del Interes Simple';
+                                    }
+                                    return null;
+                                  },
+                                )
+                          : const SizedBox(),
+                      optionIntSimpleOp == 4
                           ? TextFormField(
                               controller: amountController,
                               decoration: const InputDecoration(
@@ -230,49 +307,87 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                   interest = csi.getSimpleInterest();
                                 });
                               } else if (optionIntSimpleOp == 1) {
-                                csi.calculateRate(
-                                    principal:
-                                        double.parse(principalController.text),
-                                    amount: double.parse(amountController.text),
-                                    timeDay: timeDayController.text.isEmpty
-                                        ? 0
-                                        : double.parse(timeDayController.text),
-                                    timeMonth: timeMonthController.text.isEmpty
-                                        ? 0
-                                        : double.parse(
-                                            timeMonthController.text),
-                                    timeYear: timeYearController.text.isEmpty
-                                        ? 0
-                                        : double.parse(
-                                            timeYearController.text));
+                                optionAmountorInterestS == 0
+                                    ? csi.calculateRate(
+                                        principal: double.parse(
+                                            principalController.text),
+                                        amount:
+                                            double.parse(amountController.text),
+                                        timeDay: timeDayController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeDayController.text),
+                                        timeMonth:
+                                            timeMonthController.text.isEmpty
+                                                ? 0
+                                                : double.parse(
+                                                    timeMonthController.text),
+                                        timeYear: timeYearController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeYearController.text))
+                                    : csi.calculateRate2(
+                                        principal: double.parse(
+                                            principalController.text),
+                                        simpleInterest: double.parse(
+                                            simpleInterestController.text),
+                                        timeDay: timeDayController.text.isEmpty
+                                            ? 0
+                                            : double.parse(timeDayController.text),
+                                        timeMonth: timeMonthController.text.isEmpty ? 0 : double.parse(timeMonthController.text),
+                                        timeYear: timeYearController.text.isEmpty ? 0 : double.parse(timeYearController.text));
                                 setState(() {
                                   rate = csi.getRate2();
                                 });
                               } else if (optionIntSimpleOp == 2) {
-                                csi.calculateTime(
-                                    principal:
-                                        double.parse(principalController.text),
-                                    rate: double.parse(rateController.text),
-                                    amount:
-                                        double.parse(amountController.text));
+                                optionAmountorInterestS == 0
+                                    ? csi.calculateTime(
+                                        principal: double.parse(
+                                            principalController.text),
+                                        rate: double.parse(rateController.text),
+                                        amount:
+                                            double.parse(amountController.text))
+                                    : csi.calculateTime2(
+                                        principal: double.parse(
+                                            principalController.text),
+                                        rate: double.parse(rateController.text),
+                                        simpleInterest: double.parse(
+                                            simpleInterestController.text));
                                 setState(() {
                                   time = csi.getTime();
                                 });
                               } else if (optionIntSimpleOp == 3) {
-                                csi.calculatePrincipal(
-                                    amount: double.parse(amountController.text),
-                                    rate: double.parse(rateController.text),
-                                    timeDay: timeDayController.text.isEmpty
-                                        ? 0
-                                        : double.parse(timeDayController.text),
-                                    timeMonth: timeMonthController.text.isEmpty
-                                        ? 0
-                                        : double.parse(
-                                            timeMonthController.text),
-                                    timeYear: timeYearController.text.isEmpty
-                                        ? 0
-                                        : double.parse(
-                                            timeYearController.text));
+                                optionAmountorInterestS == 0
+                                    ? csi.calculatePrincipal(
+                                        amount:
+                                            double.parse(amountController.text),
+                                        rate: double.parse(rateController.text),
+                                        timeDay: timeDayController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeDayController.text),
+                                        timeMonth: timeMonthController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeMonthController.text),
+                                        timeYear: timeYearController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeYearController.text))
+                                    : csi.calculatePrincipal2(
+                                        simpleInterest: double.parse(
+                                            simpleInterestController.text),
+                                        rate: double.parse(rateController.text),
+                                        timeDay: timeDayController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeDayController.text),
+                                        timeMonth:
+                                            timeMonthController.text.isEmpty
+                                                ? 0
+                                                : double.parse(
+                                                    timeMonthController.text),
+                                        timeYear: timeYearController.text.isEmpty ? 0 : double.parse(timeYearController.text));
                                 setState(() {
                                   principal = csi.getPrincipal();
                                 });
