@@ -71,7 +71,8 @@ class _SimpleInterestState extends State<SimpleInterest> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: getFormula(selectedOption),
+                      child:
+                          getFormula(selectedOption, optionAmountorInterestS),
                     ),
                   ],
                 ),
@@ -448,7 +449,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
         ));
   }
 
-  Widget getFormula(int selectedOption) {
+  Widget getFormula(int selectedOption, int optionAmountorInterestS) {
     switch (selectedOption) {
       case 0:
         return Column(
@@ -458,11 +459,17 @@ class _SimpleInterestState extends State<SimpleInterest> {
           ],
         );
       case 1:
-        return Image.asset('assets/formula/TasaInteresSimple.jpg');
+        return optionAmountorInterestS == 0
+            ? Image.asset('assets/formula/TasaInteresSimple.jpg')
+            : Image.asset('assets/formula/TasaInteresSimple2.jpg');
       case 2:
-        return Image.asset('assets/formula/TiempoSimple.jpg');
+        return optionAmountorInterestS == 0
+            ? Image.asset('assets/formula/TiempoSimple.jpg')
+            : Image.asset('assets/formula/TiempoSimple2.jpg');
       case 3:
-        return Image.asset('assets/formula/ValorPreSimple.jpg');
+        return optionAmountorInterestS == 0
+            ? Image.asset('assets/formula/ValorPreSimple.jpg')
+            : Image.asset('assets/formula/ValorPreSimple2.jpg');
       case 4:
         return Image.asset('assets/formula/InteresSimple=valorF.jpg');
 
