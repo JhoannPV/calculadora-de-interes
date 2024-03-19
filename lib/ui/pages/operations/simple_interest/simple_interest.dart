@@ -29,6 +29,15 @@ class _SimpleInterestState extends State<SimpleInterest> {
   int optionIntSimpleOp = 0;
   int selectedOption = 0;
   int optionAmountorInterestS = 0;
+  List<String> typeofinterest = [
+    'Mensual',
+    'Bimestral',
+    'Trimestral',
+    'Cuatrimestral',
+    'Semestral',
+    'Anual'
+  ];
+  String selectedTypeofinterest = 'Anual';
 
   @override
   void dispose() {
@@ -263,7 +272,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                           : TextFormField(
                               controller: rateController,
                               decoration: const InputDecoration(
-                                labelText: 'Interes (%)',
+                                labelText: 'Tasa de Interes (%)',
                                 icon: Icon(Icons.percent),
                               ),
                               keyboardType: TextInputType.number,
@@ -273,6 +282,37 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                 }
                                 return null;
                               },
+                            ),
+                      optionIntSimpleOp == 4
+                          ? const SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Tipo de Interes',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      )),
+                                  DropdownButton<String>(
+                                    value: selectedTypeofinterest,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        selectedTypeofinterest = newValue!;
+                                      });
+                                    },
+                                    items: typeofinterest
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
                             ),
                       optionIntSimpleOp == 2 || optionIntSimpleOp == 4
                           ? const SizedBox()
@@ -292,6 +332,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                     principal:
                                         double.parse(principalController.text),
                                     rate: double.parse(rateController.text),
+                                    typeofinterest: selectedTypeofinterest,
                                     timeDay: timeDayController.text.isEmpty
                                         ? 0
                                         : double.parse(timeDayController.text),
@@ -314,6 +355,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                             principalController.text),
                                         amount:
                                             double.parse(amountController.text),
+                                        typeofinterest: selectedTypeofinterest,
                                         timeDay: timeDayController.text.isEmpty
                                             ? 0
                                             : double.parse(
@@ -323,15 +365,17 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                                 ? 0
                                                 : double.parse(
                                                     timeMonthController.text),
-                                        timeYear: timeYearController.text.isEmpty
-                                            ? 0
-                                            : double.parse(
-                                                timeYearController.text))
+                                        timeYear:
+                                            timeYearController.text.isEmpty
+                                                ? 0
+                                                : double.parse(
+                                                    timeYearController.text))
                                     : csi.calculateRate2(
                                         principal: double.parse(
                                             principalController.text),
                                         simpleInterest: double.parse(
                                             simpleInterestController.text),
+                                        typeofinterest: selectedTypeofinterest,
                                         timeDay: timeDayController.text.isEmpty
                                             ? 0
                                             : double.parse(timeDayController.text),
@@ -347,13 +391,15 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                             principalController.text),
                                         rate: double.parse(rateController.text),
                                         amount:
-                                            double.parse(amountController.text))
+                                            double.parse(amountController.text),
+                                        typeofinterest: selectedTypeofinterest)
                                     : csi.calculateTime2(
                                         principal: double.parse(
                                             principalController.text),
                                         rate: double.parse(rateController.text),
                                         simpleInterest: double.parse(
-                                            simpleInterestController.text));
+                                            simpleInterestController.text),
+                                        typeofinterest: selectedTypeofinterest);
                                 setState(() {
                                   time = csi.getTime();
                                 });
@@ -362,6 +408,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                     ? csi.calculatePrincipal(
                                         amount:
                                             double.parse(amountController.text),
+                                        typeofinterest: selectedTypeofinterest,
                                         rate: double.parse(rateController.text),
                                         timeDay: timeDayController.text.isEmpty
                                             ? 0
@@ -378,17 +425,18 @@ class _SimpleInterestState extends State<SimpleInterest> {
                                     : csi.calculatePrincipal2(
                                         simpleInterest: double.parse(
                                             simpleInterestController.text),
+                                        typeofinterest: selectedTypeofinterest,
                                         rate: double.parse(rateController.text),
                                         timeDay: timeDayController.text.isEmpty
                                             ? 0
                                             : double.parse(
                                                 timeDayController.text),
-                                        timeMonth:
-                                            timeMonthController.text.isEmpty
-                                                ? 0
-                                                : double.parse(
-                                                    timeMonthController.text),
-                                        timeYear: timeYearController.text.isEmpty ? 0 : double.parse(timeYearController.text));
+                                        timeMonth: timeMonthController.text.isEmpty
+                                            ? 0
+                                            : double.parse(
+                                                timeMonthController.text),
+                                        timeYear:
+                                            timeYearController.text.isEmpty ? 0 : double.parse(timeYearController.text));
                                 setState(() {
                                   principal = csi.getPrincipal();
                                 });
@@ -520,8 +568,7 @@ class Time extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(top: 40),
-          child: Text('Tiempo',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          child: Text('Tiempo', style: TextStyle(fontSize: 20)),
         ),
         TextFormField(
           controller: timeYearController,
