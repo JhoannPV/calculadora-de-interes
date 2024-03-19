@@ -26,6 +26,15 @@ class _AnnuitiesState extends State<Annuities> {
   bool? switchVFVA = false;
   int optionAnnuity = 0;
   int selectedOption = 0;
+  List<String> typeofinterest = [
+    'Mensual',
+    'Bimestral',
+    'Trimestral',
+    'Cuatrimestral',
+    'Semestral',
+    'Anual'
+  ];
+  String selectedTypeofinterest = 'Anual';
 
   @override
   void dispose() {
@@ -158,7 +167,7 @@ class _AnnuitiesState extends State<Annuities> {
                       TextFormField(
                         controller: rateController,
                         decoration: const InputDecoration(
-                          labelText: 'Interes (%)',
+                          labelText: 'Tasa de Interes (%)',
                           icon: Icon(Icons.percent),
                         ),
                         keyboardType: TextInputType.number,
@@ -169,6 +178,37 @@ class _AnnuitiesState extends State<Annuities> {
                           return null;
                         },
                       ),
+                      optionAnnuity == 3
+                          ? const SizedBox()
+                          : Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Tipo de Interes',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      )),
+                                  DropdownButton<String>(
+                                    value: selectedTypeofinterest,
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        selectedTypeofinterest = newValue!;
+                                      });
+                                    },
+                                    items: typeofinterest
+                                        .map<DropdownMenuItem<String>>(
+                                            (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ],
+                              ),
+                            ),
                       optionAnnuity == 3
                           ? const SizedBox()
                           : Time(
@@ -204,6 +244,8 @@ class _AnnuitiesState extends State<Annuities> {
                                                     annuityController.text),
                                                 rate: double.parse(
                                                     rateController.text),
+                                                typeofinterest:
+                                                    selectedTypeofinterest,
                                                 timeDay: timeDayController
                                                         .text.isEmpty
                                                     ? 0
@@ -231,6 +273,8 @@ class _AnnuitiesState extends State<Annuities> {
                                                     annuityController.text),
                                                 rate: double.parse(
                                                     rateController.text),
+                                                typeofinterest:
+                                                    selectedTypeofinterest,
                                                 timeDay: timeDayController
                                                         .text.isEmpty
                                                     ? 0
@@ -258,6 +302,8 @@ class _AnnuitiesState extends State<Annuities> {
                                                   annuityController.text),
                                               rate: double.parse(
                                                   rateController.text),
+                                              typeofinterest:
+                                                  selectedTypeofinterest,
                                               timeDay: timeDayController
                                                       .text.isEmpty
                                                   ? 0
@@ -321,6 +367,8 @@ class _AnnuitiesState extends State<Annuities> {
                                               annuityController.text),
                                           rate:
                                               double.parse(rateController.text),
+                                          typeofinterest:
+                                              selectedTypeofinterest,
                                           timeDay:
                                               timeDayController.text.isEmpty
                                                   ? 0
@@ -347,6 +395,8 @@ class _AnnuitiesState extends State<Annuities> {
                                               annuityController.text),
                                           rate:
                                               double.parse(rateController.text),
+                                          typeofinterest:
+                                              selectedTypeofinterest,
                                           timeDay:
                                               timeDayController.text.isEmpty
                                                   ? 0
@@ -372,6 +422,7 @@ class _AnnuitiesState extends State<Annuities> {
                                         annuity: double.parse(
                                             annuityController.text),
                                         rate: double.parse(rateController.text),
+                                        typeofinterest: selectedTypeofinterest,
                                         timeDay: timeDayController.text.isEmpty
                                             ? 0
                                             : double.parse(
@@ -409,10 +460,10 @@ class _AnnuitiesState extends State<Annuities> {
                                       ca.clearValues();
                                     } else if (optionAnnuity == 3) {
                                       ca.calculatePerpetualAnnuityVA(
-                                          annuity: double.parse(
-                                              annuityController.text),
-                                          rate: double.parse(
-                                              rateController.text));
+                                        annuity: double.parse(
+                                            annuityController.text),
+                                        rate: double.parse(rateController.text),
+                                      );
                                       setState(() {
                                         result = ca.getAmount();
                                         switchVFVA = true;
