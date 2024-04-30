@@ -153,6 +153,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  financial_transactions:
+    dependency: "direct main"
+    description:
+      name: financial_transactions
+      sha256: cdd9a0366b9a7725f7ae328e591295d8c607ed527b4a6f9c981794a406b60f95
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
