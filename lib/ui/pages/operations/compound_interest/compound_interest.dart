@@ -1,5 +1,9 @@
+import 'package:calculadora_de_interes/domain/controller/data/data.dart';
+import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:get/get.dart';
 
 class CompoundInterest extends StatefulWidget {
   const CompoundInterest({super.key});
@@ -13,6 +17,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
   final TextEditingController _interestRateController = TextEditingController();
   final TextEditingController _periodController = TextEditingController();
   final TextEditingController _finalAmountController = TextEditingController();
+  Data data = Get.find();
   String _selectedTimeBase = 'Año'; // Valor inicial
   final List<String> _timeBases = ['Día', 'Mes', 'Año'];
   final List<String> _calculations = [
@@ -32,7 +37,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
     switch (_selectedTimeBase) {
       case 'Día':
         rate = rate / 100; // tasa anual a diaria
-        period = period / 365.25; // periodo de días a años
+        period =
+            period / data.getDays.value!.toDouble(); // periodo de días a años
         break;
       case 'Mes':
         rate = rate / 100; // tasa anual a mensual
@@ -77,7 +83,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
     switch (_selectedTimeBase) {
       case 'Día':
         rate = rate / 100; // tasa anual a diaria
-        period = period / 365.25; // periodo de días a años
+        period =
+            period / data.getDays.value!.toDouble(); // periodo de días a años
         break;
       case 'Mes':
         rate = rate / 100; // tasa anual a mensual
@@ -143,8 +150,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
         if (_selectedTimeBase == 'mes') {
           time *= 30; // Convertir días a meses (asumiendo un mes de 30 días)
         } else {
-          time *=
-              365.25; // Convertir días a años (tomando en cuenta años bisiestos)
+          time *= data.getDays.value!
+              .toDouble(); // Convertir días a años (tomando en cuenta años bisiestos)
         }
         break;
       case 'Mes':
@@ -187,7 +194,8 @@ class _CompoundInterestState extends State<CompoundInterest> {
 
     switch (_selectedTimeBase) {
       case 'Día':
-        period = period / 365.25; // periodo de días a años
+        period =
+            period / data.getDays.value!.toDouble(); // periodo de días a años
         break;
       case 'Mes':
         period = period / 12; // periodo de meses a años
@@ -260,6 +268,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
+      floatingActionButton: const BusinessDays(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
