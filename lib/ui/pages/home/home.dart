@@ -48,6 +48,7 @@ class Home extends StatelessWidget {
                 title: "Interes Compuesto",
                 icon: Icons.calculate_outlined,
               ),
+             
             ],
           ),
           const Row(
@@ -58,6 +59,11 @@ class Home extends StatelessWidget {
                 title: "Anualidades",
                 icon: Icons.calculate,
               ),
+               ButtonOperation(
+                route: "/taza_interesr", 
+                title: "Tasa de Interes de Retorno", 
+                icon: Icons.trending_up,
+                )
             ],
           )
         ],
