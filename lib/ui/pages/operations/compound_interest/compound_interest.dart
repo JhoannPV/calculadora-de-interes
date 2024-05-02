@@ -1,4 +1,5 @@
 import 'package:calculadora_de_interes/domain/controller/data/data.dart';
+import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
@@ -268,6 +269,7 @@ class _CompoundInterestState extends State<CompoundInterest> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
+      drawer: const DrawerMenu(),
       floatingActionButton: const BusinessDays(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
