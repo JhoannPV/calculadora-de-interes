@@ -1,4 +1,5 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_gradients.dart';
+import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/time_form.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -37,13 +38,26 @@ class _GradientsState extends State<Gradients> {
   String selectedTypeofinterest = 'Anual';
 
   @override
+  void dispose() {
+    constantValueController.dispose();
+    gradientValueLController.dispose();
+    gradientValueGController.dispose();
+    rateController.dispose();
+    timeDayController.dispose();
+    timeMonthController.dispose();
+    timeYearController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gradients'),
+        title: const Text('Gradientes'),
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
+      endDrawer: const DrawerMenu(),
       floatingActionButton: const BusinessDays(),
       body: SingleChildScrollView(
         child: Padding(
