@@ -484,6 +484,7 @@ class _GradientsState extends State<Gradients> {
                                   double.parse(constantValueController.text),
                               gradientValueL:
                                   double.parse(gradientValueLController.text),
+                              typeofinterest: selectedTypeofinterest,
                               timeDay: timeDayController.text.isEmpty
                                   ? 0
                                   : double.parse(timeDayController.text),
@@ -506,6 +507,7 @@ class _GradientsState extends State<Gradients> {
                                   double.parse(constantValueController.text),
                               gradientValueL:
                                   double.parse(gradientValueLController.text),
+                              typeofinterest: selectedTypeofinterest,
                               timeDay: timeDayController.text.isEmpty
                                   ? 0
                                   : double.parse(timeDayController.text),
@@ -528,6 +530,7 @@ class _GradientsState extends State<Gradients> {
                                   double.parse(constantValueController.text),
                               gradientValueG:
                                   double.parse(gradientValueGController.text),
+                              typeofinterest: selectedTypeofinterest,
                               timeDay: timeDayController.text.isEmpty
                                   ? 0
                                   : double.parse(timeDayController.text),
@@ -550,6 +553,7 @@ class _GradientsState extends State<Gradients> {
                                   double.parse(constantValueController.text),
                               gradientValueG:
                                   double.parse(gradientValueGController.text),
+                              typeofinterest: selectedTypeofinterest,
                               timeDay: timeDayController.text.isEmpty
                                   ? 0
                                   : double.parse(timeDayController.text),
