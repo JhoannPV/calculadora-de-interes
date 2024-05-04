@@ -340,6 +340,7 @@ class CalculateGradients extends GetxController {
   void calculateIncreasingLinearGradientQuota(
       {required double constantValue,
       required double gradientValueL,
+      required String typeofinterest,
       double timeDay = 0,
       double timeMonth = 0,
       double timeYear = 0}) {
@@ -347,6 +348,26 @@ class CalculateGradients extends GetxController {
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     double time = timeYear;
+    switch (typeofinterest) {
+      case 'Mensual':
+        time = timeYear * 12;
+        break;
+      case 'Bimestral':
+        time = timeYear * 6;
+        break;
+      case 'Trimestral':
+        time = timeYear * 4;
+        break;
+      case 'Cuatrimestral':
+        time = timeYear * 3;
+        break;
+      case 'Semestral':
+        time = timeYear * 2;
+        break;
+      case 'Anual':
+        time = timeYear;
+        break;
+    }
     quotaValue.value = double.parse(
         (constantValue + (time - 1) * gradientValueL).toStringAsFixed(1));
   }
@@ -354,6 +375,7 @@ class CalculateGradients extends GetxController {
   void calculateDecreasingLinearGradientQuota(
       {required double constantValue,
       required double gradientValueL,
+      required String typeofinterest,
       double timeDay = 0,
       double timeMonth = 0,
       double timeYear = 0}) {
@@ -361,6 +383,26 @@ class CalculateGradients extends GetxController {
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     double time = timeYear;
+    switch (typeofinterest) {
+      case 'Mensual':
+        time = timeYear * 12;
+        break;
+      case 'Bimestral':
+        time = timeYear * 6;
+        break;
+      case 'Trimestral':
+        time = timeYear * 4;
+        break;
+      case 'Cuatrimestral':
+        time = timeYear * 3;
+        break;
+      case 'Semestral':
+        time = timeYear * 2;
+        break;
+      case 'Anual':
+        time = timeYear;
+        break;
+    }
     quotaValue.value = double.parse(
         (constantValue - (time - 1) * gradientValueL).toStringAsFixed(1));
   }
@@ -368,6 +410,7 @@ class CalculateGradients extends GetxController {
   void calculateIncreasingGeometricGradientQuota(
       {required double constantValue,
       required double gradientValueG,
+      required String typeofinterest,
       double timeDay = 0,
       double timeMonth = 0,
       double timeYear = 0}) {
@@ -376,6 +419,26 @@ class CalculateGradients extends GetxController {
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     double time = timeYear;
+    switch (typeofinterest) {
+      case 'Mensual':
+        time = timeYear * 12;
+        break;
+      case 'Bimestral':
+        time = timeYear * 6;
+        break;
+      case 'Trimestral':
+        time = timeYear * 4;
+        break;
+      case 'Cuatrimestral':
+        time = timeYear * 3;
+        break;
+      case 'Semestral':
+        time = timeYear * 2;
+        break;
+      case 'Anual':
+        time = timeYear;
+        break;
+    }
     quotaValue.value = double.parse(
         (constantValue * pow(1 + gradientValueG, time - 1)).toStringAsFixed(1));
   }
@@ -383,6 +446,7 @@ class CalculateGradients extends GetxController {
   void calculateDecreasingGeometricGradientQuota(
       {required double constantValue,
       required double gradientValueG,
+      required String typeofinterest,
       double timeDay = 0,
       double timeMonth = 0,
       double timeYear = 0}) {
@@ -391,6 +455,26 @@ class CalculateGradients extends GetxController {
     timeMonth = (timeMonth / 12);
     timeYear = timeYear + timeDay + timeMonth;
     double time = timeYear;
+    switch (typeofinterest) {
+      case 'Mensual':
+        time = timeYear * 12;
+        break;
+      case 'Bimestral':
+        time = timeYear * 6;
+        break;
+      case 'Trimestral':
+        time = timeYear * 4;
+        break;
+      case 'Cuatrimestral':
+        time = timeYear * 3;
+        break;
+      case 'Semestral':
+        time = timeYear * 2;
+        break;
+      case 'Anual':
+        time = timeYear;
+        break;
+    }
     quotaValue.value = double.parse(
         (constantValue * pow(1 - gradientValueG, time - 1)).toStringAsFixed(1));
   }

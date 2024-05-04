@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                 icon: Icons.calculate,
               ),
               ButtonOperation(
-                route: "/interest_returne",
+                route: "/interest_return",
                 title: "Tasa de Interes de Retorno",
                 icon: Icons.trending_up,
               )
