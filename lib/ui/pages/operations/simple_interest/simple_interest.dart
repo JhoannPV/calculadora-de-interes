@@ -1,6 +1,7 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_simple_interest.dart';
 import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
+import 'package:calculadora_de_interes/ui/pages/widgets/time_form.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -319,9 +320,10 @@ class _SimpleInterestState extends State<SimpleInterest> {
                       optionIntSimpleOp == 2 || optionIntSimpleOp == 4
                           ? const SizedBox()
                           : Time(
-                              timeYearController: timeYearController,
-                              timeMonthController: timeMonthController,
-                              timeDayController: timeDayController),
+                              title: 'Tiempo',
+                              yearController: timeYearController,
+                              monthController: timeMonthController,
+                              dayController: timeDayController),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
@@ -547,55 +549,6 @@ class SimpleInterestAmountResult extends StatelessWidget {
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         SelectableText('Monto: $amount',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      ],
-    );
-  }
-}
-
-class Time extends StatelessWidget {
-  const Time({
-    super.key,
-    required this.timeYearController,
-    required this.timeMonthController,
-    required this.timeDayController,
-  });
-
-  final TextEditingController timeYearController;
-  final TextEditingController timeMonthController;
-  final TextEditingController timeDayController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 40),
-          child: Text('Tiempo', style: TextStyle(fontSize: 20)),
-        ),
-        TextFormField(
-          controller: timeYearController,
-          decoration: const InputDecoration(
-            labelText: 'Años',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextField(
-          controller: timeMonthController,
-          decoration: const InputDecoration(
-            labelText: 'Meses',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextFormField(
-          controller: timeDayController,
-          decoration: const InputDecoration(
-            labelText: 'Días',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
       ],
     );
   }

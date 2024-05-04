@@ -2,14 +2,14 @@ import 'dart:math';
 import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:flutter/material.dart';
 
-class TazaInteres extends StatefulWidget {
-  const TazaInteres({super.key});
+class InterestReturn extends StatefulWidget {
+  const InterestReturn({super.key});
 
   @override
-  State<TazaInteres> createState() => _TazaInteresState();
+  State<InterestReturn> createState() => _InterestReturnState();
 }
 
-class _TazaInteresState extends State<TazaInteres> {
+class _InterestReturnState extends State<InterestReturn> {
   TextEditingController initialInvestmentController = TextEditingController();
   TextEditingController yearsController = TextEditingController();
 
@@ -141,7 +141,7 @@ class _TazaInteresState extends State<TazaInteres> {
       height: 200,
     );
   }
-
+  
   double calculateIRR(List<double> cashFlows) {
     double tirEstimate = 0.01; // Estimación inicial de la TIR más conservadora
     const int maxIterations = 10000;
@@ -161,11 +161,9 @@ class _TazaInteresState extends State<TazaInteres> {
           vanDerivative += -period * discountedCashFlow / (1 + tirEstimate);
         }
       }
-
       if (van.abs() <= tolerance) {
         break; // Convergencia alcanzada
       }
-
       double tirDelta = van / vanDerivative;
       tirEstimate -= tirDelta;
 
@@ -174,7 +172,6 @@ class _TazaInteresState extends State<TazaInteres> {
             'No se pudo calcular la TIR: el resultado no es un número válido.');
       }
     }
-
     return tirEstimate*100;
   }
 }
