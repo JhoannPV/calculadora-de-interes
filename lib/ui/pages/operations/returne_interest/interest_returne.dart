@@ -1,14 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-class TazaInteres extends StatefulWidget {
-  const TazaInteres({super.key});
+class InterestReturn extends StatefulWidget {
+  const InterestReturn({super.key});
 
   @override
-  State<TazaInteres> createState() => _TazaInteresState();
+  State<InterestReturn> createState() => _InterestReturnState();
 }
 
-class _TazaInteresState extends State<TazaInteres> {
+class _InterestReturnState extends State<InterestReturn> {
   TextEditingController initialInvestmentController = TextEditingController();
   TextEditingController cashFlowController = TextEditingController();
   TextEditingController yearsController = TextEditingController();
@@ -98,20 +98,20 @@ class _TazaInteresState extends State<TazaInteres> {
   }
 
   void calculateTIR() {
-  double initialInvestment = double.tryParse(initialInvestmentController.text) ?? 0.0;
-  double cashFlow = double.tryParse(cashFlowController.text) ?? 0.0;
-  int years = int.tryParse(yearsController.text) ?? 0;
+    double initialInvestment =
+        double.tryParse(initialInvestmentController.text) ?? 0.0;
+    double cashFlow = double.tryParse(cashFlowController.text) ?? 0.0;
+    int years = int.tryParse(yearsController.text) ?? 0;
 
-  double tir = calculateTIRFormula(initialInvestment, cashFlow, years);
+    double tir = calculateTIRFormula(initialInvestment, cashFlow, years);
 
-  setState(() {
-    this.tir = tir;
-  });
-}
-
+    setState(() {
+      this.tir = tir;
+    });
+  }
 
   double calculateTIRFormula(
-    double initialInvestment, double cashFlow, int years) {
+      double initialInvestment, double cashFlow, int years) {
     double low = -0.99;
     double high = 0.99;
 
