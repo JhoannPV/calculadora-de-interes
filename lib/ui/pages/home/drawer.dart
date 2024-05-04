@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
@@ -22,27 +23,39 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
+            title: const Text('Pagina Principal'),
+            onTap: () {
+              Get.offNamed('/home');
+            },
+          ),
+          ListTile(
             title: const Text('Interes Simple'),
             onTap: () {
-              Navigator.pushNamed(context, '/simple_interest');
+              Get.offNamed('/simple_interest');
             },
           ),
           ListTile(
             title: const Text('Interes Compuesto'),
             onTap: () {
-              Navigator.pushNamed(context, '/compound_interest');
+              Get.offNamed('/compound_interest');
             },
           ),
           ListTile(
             title: const Text('Anualidades'),
             onTap: () {
-              Navigator.pushNamed(context, '/annuities');
+              Get.offNamed('/annuities');
             },
           ),
           ListTile(
             title: const Text('Retorno de Interes'),
             onTap: () {
-              Navigator.pushNamed(context, '/taza_interesr');
+              Get.offNamed('/interest_return');
+            },
+          ),
+          ListTile(
+            title: const Text('Gradientes'),
+            onTap: () {
+              Get.offNamed('/gradients');
             },
           ),
         ],

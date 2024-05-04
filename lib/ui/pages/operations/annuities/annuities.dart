@@ -59,7 +59,7 @@ class _AnnuitiesState extends State<Annuities> {
           backgroundColor: const Color(0xFF013542),
           foregroundColor: Colors.white,
         ),
-        drawer: const DrawerMenu(),
+        endDrawer: const DrawerMenu(),
         floatingActionButton: const BusinessDays(),
         body: SingleChildScrollView(
           child: Padding(

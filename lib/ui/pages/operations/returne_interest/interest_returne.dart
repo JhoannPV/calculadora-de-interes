@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class InterestReturn extends StatefulWidget {
   const InterestReturn({super.key});
@@ -25,7 +26,7 @@ class _InterestReturnState extends State<InterestReturn> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
-      drawer: const DrawerMenu(),
+      endDrawer: const DrawerMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -113,7 +114,7 @@ class _InterestReturnState extends State<InterestReturn> {
                         TextButton(
                           child: const Text('OK'),
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Get.back();
                           },
                         ),
                       ],
@@ -141,7 +142,7 @@ class _InterestReturnState extends State<InterestReturn> {
       height: 200,
     );
   }
-  
+
   double calculateIRR(List<double> cashFlows) {
     double tirEstimate = 0.01; // Estimación inicial de la TIR más conservadora
     const int maxIterations = 10000;
@@ -172,6 +173,6 @@ class _InterestReturnState extends State<InterestReturn> {
             'No se pudo calcular la TIR: el resultado no es un número válido.');
       }
     }
-    return tirEstimate*100;
+    return tirEstimate * 100;
   }
 }
