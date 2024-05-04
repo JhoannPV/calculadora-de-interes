@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:flutter/material.dart';
 
 class InterestReturn extends StatefulWidget {
@@ -10,10 +11,11 @@ class InterestReturn extends StatefulWidget {
 
 class _InterestReturnState extends State<InterestReturn> {
   TextEditingController initialInvestmentController = TextEditingController();
-  TextEditingController cashFlowController = TextEditingController();
   TextEditingController yearsController = TextEditingController();
 
-  double tir = 0.0;
+  double tirEstimate = 0.0;
+  bool showFields = false;
+  List<TextEditingController> cashFlowControllers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class _InterestReturnState extends State<InterestReturn> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
+      drawer: const DrawerMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -57,30 +60,72 @@ class _InterestReturnState extends State<InterestReturn> {
             ),
             const SizedBox(height: 16),
             TextField(
-              controller: cashFlowController,
-              decoration: const InputDecoration(
-                labelText: 'Flujo de efectivo',
-                hintText: 'Ingresar el flujo de efectivo',
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            TextField(
               controller: yearsController,
               decoration: const InputDecoration(
                 labelText: 'Años',
                 hintText: 'Ingresar el número de años',
               ),
               keyboardType: TextInputType.number,
+              onChanged: (value) {
+                setState(() {
+                  int years = int.tryParse(value) ?? 0;
+                  showFields = years > 0;
+                  cashFlowControllers = List.generate(
+                    years,
+                    (index) => TextEditingController(),
+                  );
+                });
+              },
             ),
+            if (showFields)
+              ...cashFlowControllers.map(
+                (controller) => TextField(
+                  controller: controller,
+                  decoration: const InputDecoration(
+                    labelText: 'Flujo de efectivo',
+                    hintText: 'Ingresar el flujo de efectivo',
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+              ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: calculateTIR,
+              onPressed: () {
+                try {
+                  double initialInvestment = -double.parse(
+                      initialInvestmentController
+                          .text); // Inversión inicial como un desembolso
+                  List<double> cashFlows = [initialInvestment];
+                  cashFlows.addAll(cashFlowControllers
+                      .map((controller) => double.parse(controller.text))
+                      .toList());
+                  setState(() {
+                    tirEstimate = calculateIRR(cashFlows);
+                  });
+                } catch (e) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Error'),
+                      content: const Text(
+                          'No se pudo calcular la TIR. Por favor, revisa los flujos de efectivo ingresados.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              },
               child: const Text('Calcular'),
             ),
             const SizedBox(height: 16),
             Text(
-              'Tasa de retorno de interés: ${tir.toStringAsFixed(2)}%',
+              'Tasa de retorno de interés: ${tirEstimate.ceil()}%',
               style: const TextStyle(fontSize: 20),
             ),
           ],
@@ -91,56 +136,42 @@ class _InterestReturnState extends State<InterestReturn> {
 
   Widget getFormulaImage() {
     return Image.asset(
-      'assets/images/interest_returne_formula.png',
+      'assets/formula/TIR_tasa_interna_retorno.jpg', // Corregir el nombre de la imagen si es necesario
       width: 300,
       height: 200,
     );
   }
+  
+  double calculateIRR(List<double> cashFlows) {
+    double tirEstimate = 0.01; // Estimación inicial de la TIR más conservadora
+    const int maxIterations = 10000;
+    const double tolerance = 1e-4;
+    double van = 0;
+    double vanDerivative = 0;
 
-  void calculateTIR() {
-    double initialInvestment =
-        double.tryParse(initialInvestmentController.text) ?? 0.0;
-    double cashFlow = double.tryParse(cashFlowController.text) ?? 0.0;
-    int years = int.tryParse(yearsController.text) ?? 0;
+    for (int iteration = 0; iteration < maxIterations; iteration++) {
+      van = 0;
+      vanDerivative = 0;
 
-    double tir = calculateTIRFormula(initialInvestment, cashFlow, years);
-
-    setState(() {
-      this.tir = tir;
-    });
-  }
-
-  double calculateTIRFormula(
-      double initialInvestment, double cashFlow, int years) {
-    double low = -0.99;
-    double high = 0.99;
-
-    double tolerance = 0.00001;
-
-    double tir = (low + high) / 2.0;
-    double npv = calculateNPV(initialInvestment, cashFlow, years, tir);
-
-    while ((high - low).abs() > tolerance) {
-      if (npv == 0) {
-        break;
-      } else if (npv > 0) {
-        high = tir;
-      } else {
-        low = tir;
+      for (int period = 0; period < cashFlows.length; period++) {
+        double discountedCashFlow =
+            cashFlows[period] / pow(1 + tirEstimate, period);
+        van += discountedCashFlow;
+        if (period > 0) {
+          vanDerivative += -period * discountedCashFlow / (1 + tirEstimate);
+        }
       }
-      tir = (low + high) / 2.0;
-      npv = calculateNPV(initialInvestment, cashFlow, years, tir);
-    }
+      if (van.abs() <= tolerance) {
+        break; // Convergencia alcanzada
+      }
+      double tirDelta = van / vanDerivative;
+      tirEstimate -= tirDelta;
 
-    return tir * 100.0; // Convertir a porcentaje
-  }
-
-  double calculateNPV(
-      double initialInvestment, double cashFlow, int years, double rate) {
-    double npv = -initialInvestment;
-    for (int n = 1; n <= years; n++) {
-      npv += cashFlow / pow(1 + rate, n);
+      if (tirEstimate.isNaN || tirEstimate.isInfinite) {
+        throw Exception(
+            'No se pudo calcular la TIR: el resultado no es un número válido.');
+      }
     }
-    return npv;
+    return tirEstimate*100;
   }
 }

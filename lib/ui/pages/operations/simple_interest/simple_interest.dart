@@ -1,4 +1,5 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_simple_interest.dart';
+import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/time_form.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -59,6 +60,7 @@ class _SimpleInterestState extends State<SimpleInterest> {
           backgroundColor: const Color(0xFF013542),
           foregroundColor: Colors.white,
         ),
+        drawer: const DrawerMenu(),
         floatingActionButton: const BusinessDays(),
         body: SingleChildScrollView(
           child: Padding(
