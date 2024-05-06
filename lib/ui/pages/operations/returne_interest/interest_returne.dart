@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,6 +26,7 @@ class _InterestReturnState extends State<InterestReturn> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
+      endDrawer: const DrawerMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -89,10 +91,13 @@ class _InterestReturnState extends State<InterestReturn> {
               ),
             const SizedBox(height: 16),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF013542)),
               onPressed: () {
                 try {
                   double initialInvestment = -double.parse(
-                      initialInvestmentController.text); // Inversión inicial como un desembolso
+                      initialInvestmentController
+                          .text); // Inversión inicial como un desembolso
                   List<double> cashFlows = [initialInvestment];
                   cashFlows.addAll(cashFlowControllers
                       .map((controller) => double.parse(controller.text))
@@ -109,7 +114,10 @@ class _InterestReturnState extends State<InterestReturn> {
                           'No se pudo calcular la TIR. Por favor, revisa los flujos de efectivo ingresados.'),
                       actions: <Widget>[
                         TextButton(
-                          child: const Text('OK'),
+                          child: const Text('OK',
+                              style: TextStyle(
+                                  color: Color(0xFF013542),
+                                  fontWeight: FontWeight.bold)),
                           onPressed: () {
                             Get.back();
                           },
@@ -119,7 +127,8 @@ class _InterestReturnState extends State<InterestReturn> {
                   );
                 }
               },
-              child: const Text('Calcular'),
+              child:
+                  const Text('Calcular', style: TextStyle(color: Colors.white)),
             ),
             const SizedBox(height: 16),
             Text(
@@ -156,8 +165,8 @@ class _InterestReturnState extends State<InterestReturn> {
             cashFlows[period] / pow(1 + tirEstimate, period);
         van += discountedCashFlow;
         if (period > 0) {
-          vanDerivative += -period * cashFlows[period] /
-              pow(1 + tirEstimate, period + 1);
+          vanDerivative +=
+              -period * cashFlows[period] / pow(1 + tirEstimate, period + 1);
         }
       }
       if (van.abs() <= tolerance) {

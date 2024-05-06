@@ -1,6 +1,5 @@
 import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/operations/amortization_capitalization_systems/amort_systems.dart';
-import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +46,6 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
         foregroundColor: Colors.white,
       ),
       endDrawer: const DrawerMenu(),
-      floatingActionButton: const BusinessDays(),
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(10),
