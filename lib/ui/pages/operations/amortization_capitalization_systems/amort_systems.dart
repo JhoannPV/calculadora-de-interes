@@ -90,7 +90,8 @@ class _SistemaFrancesState extends State<SistemaFrances> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
-    return Center(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: const [
           DataColumn(
@@ -206,7 +207,8 @@ class _SistemaAlemanState extends State<SistemaAleman> {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
 
-    return Center(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: const [
           DataColumn(
@@ -322,7 +324,8 @@ class _SistemaAmericanoState extends State<SistemaAmericano> {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
 
-    return Center(
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
       child: DataTable(
         columns: const [
           DataColumn(
