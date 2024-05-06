@@ -84,7 +84,7 @@ class _InterestReturnState extends State<InterestReturn> {
                   controller: controller,
                   decoration: const InputDecoration(
                     labelText: 'Flujo de efectivo',
-                    hintText: 'Ingresar el flujo de efectivo',
+                    hintText: 'Ingresar el flujo de efectivo ',
                   ),
                   keyboardType: TextInputType.number,
                 ),
