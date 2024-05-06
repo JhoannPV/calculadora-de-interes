@@ -265,11 +265,11 @@ class _CompoundInterestState extends State<CompoundInterest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Interés Compuesto'),
+        title: const Text('Interes Compuesto'),
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
-      drawer: const DrawerMenu(),
+      endDrawer: const DrawerMenu(),
       floatingActionButton: const BusinessDays(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),

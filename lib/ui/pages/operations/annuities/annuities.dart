@@ -1,6 +1,7 @@
 import 'package:calculadora_de_interes/domain/controller/calculations/calculate_annuities.dart';
 import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:calculadora_de_interes/ui/pages/widgets/business_days.dart';
+import 'package:calculadora_de_interes/ui/pages/widgets/time_form.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -58,100 +59,95 @@ class _AnnuitiesState extends State<Annuities> {
           backgroundColor: const Color(0xFF013542),
           foregroundColor: Colors.white,
         ),
-        drawer: const DrawerMenu(),
+        endDrawer: const DrawerMenu(),
         floatingActionButton: const BusinessDays(),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                Form(
-                  key: _keyForm,
-                  child: Column(
+                const ExpansionTile(
+                    title: Text('¿Qué es una Anualidad?'),
                     children: [
-                      const ExpansionTile(
-                          title: Text('¿Qué es una Anualidad?'),
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                  'Una anualidad es un flujo de pagos iguales que se realizan a intervalos iguales de tiempo. Estos pagos pueden ser realizados al principio o al final del periodo.'),
-                            ),
-                          ]),
-                      const SizedBox(height: 20),
-                      ExpansionTile(title: const Text('Formula'), children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: getFormula(selectedOption),
-                        ),
-                      ]),
-                      const SizedBox(height: 20),
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: CarouselSlider(
-                          options: CarouselOptions(
-                            height: 30,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                optionAnnuity = index;
-                                selectedOption = index;
-                              });
-                            },
-                          ),
-                          items: [
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_left),
-                                Text('Anualidad Ordinaria o Vencida',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                Icon(Icons.arrow_right),
-                              ],
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_left),
-                                Text('Anualidad Anticipada',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                Icon(Icons.arrow_right),
-                              ],
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_left),
-                                Text('Anualidad Diferida',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                Icon(Icons.arrow_right),
-                              ],
-                            ),
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.arrow_left),
-                                Text('Anualidad Perpetua',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                Icon(Icons.arrow_right),
-                              ],
-                            )
-                          ].map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return i;
-                              },
-                            );
-                          }).toList(),
-                        ),
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                            'Una anualidad es un flujo de pagos iguales que se realizan a intervalos iguales de tiempo. Estos pagos pueden ser realizados al principio o al final del periodo.'),
                       ),
+                    ]),
+                const SizedBox(height: 20),
+                ExpansionTile(title: const Text('Formula'), children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: getFormula(selectedOption),
+                  ),
+                ]),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      height: 30,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          optionAnnuity = index;
+                          selectedOption = index;
+                        });
+                      },
+                    ),
+                    items: [
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_left),
+                          Text('Anualidad Ordinaria o Vencida',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                          Icon(Icons.arrow_right),
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_left),
+                          Text('Anualidad Anticipada',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                          Icon(Icons.arrow_right),
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_left),
+                          Text('Anualidad Diferida',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                          Icon(Icons.arrow_right),
+                        ],
+                      ),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.arrow_left),
+                          Text('Anualidad Perpetua',
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold)),
+                          Icon(Icons.arrow_right),
+                        ],
+                      )
+                    ].map((i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return i;
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Form(
+                    key: _keyForm,
+                    child: Column(children: [
                       TextFormField(
                         controller: annuityController,
                         decoration: const InputDecoration(
@@ -481,9 +477,7 @@ class _AnnuitiesState extends State<Annuities> {
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
+                    ])),
                 result != 0
                     ? Padding(
                         padding: const EdgeInsets.all(40),
@@ -533,57 +527,5 @@ Widget getFormula(int selectedOption) {
       return Image.asset('assets/formula/anualidad_perpetua_vp.jpg');
     default:
       return const SizedBox(); // Retorna un widget vacío si la opción no es válida
-  }
-}
-
-class Time extends StatelessWidget {
-  const Time({
-    super.key,
-    required this.title,
-    required this.yearController,
-    required this.monthController,
-    required this.dayController,
-  });
-  final String title;
-  final TextEditingController yearController;
-  final TextEditingController monthController;
-  final TextEditingController dayController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: Text(title,
-              style:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        ),
-        TextFormField(
-          controller: yearController,
-          decoration: const InputDecoration(
-            labelText: 'Años',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextField(
-          controller: monthController,
-          decoration: const InputDecoration(
-            labelText: 'Meses',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
-        TextFormField(
-          controller: dayController,
-          decoration: const InputDecoration(
-            labelText: 'Días',
-            icon: Icon(Icons.calendar_today),
-          ),
-          keyboardType: TextInputType.number,
-        ),
-      ],
-    );
   }
 }
