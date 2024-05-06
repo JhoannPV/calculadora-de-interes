@@ -58,6 +58,12 @@ class DrawerMenu extends StatelessWidget {
               Get.offNamed('/gradients');
             },
           ),
+          ListTile(
+            title: const Text('Sistemas de Amortización y Capitalización'),
+            onTap: () {
+              Get.offNamed('/amort_cap_systems');
+            },
+          ),
         ],
       ),
     );
