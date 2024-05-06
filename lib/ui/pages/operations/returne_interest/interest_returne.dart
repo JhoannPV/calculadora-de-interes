@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:calculadora_de_interes/ui/pages/home/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +25,6 @@ class _InterestReturnState extends State<InterestReturn> {
         backgroundColor: const Color(0xFF013542),
         foregroundColor: Colors.white,
       ),
-      endDrawer: const DrawerMenu(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -84,7 +82,7 @@ class _InterestReturnState extends State<InterestReturn> {
                   controller: controller,
                   decoration: const InputDecoration(
                     labelText: 'Flujo de efectivo',
-                    hintText: 'Ingresar el flujo de efectivo',
+                    hintText: 'Ingresar el flujo de efectivo ',
                   ),
                   keyboardType: TextInputType.number,
                 ),
@@ -94,8 +92,7 @@ class _InterestReturnState extends State<InterestReturn> {
               onPressed: () {
                 try {
                   double initialInvestment = -double.parse(
-                      initialInvestmentController
-                          .text); // Inversión inicial como un desembolso
+                      initialInvestmentController.text); // Inversión inicial como un desembolso
                   List<double> cashFlows = [initialInvestment];
                   cashFlows.addAll(cashFlowControllers
                       .map((controller) => double.parse(controller.text))
@@ -126,7 +123,7 @@ class _InterestReturnState extends State<InterestReturn> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Tasa de retorno de interés: ${tirEstimate.ceil()}%',
+              'Tasa de retorno de interés: ${tirEstimate.toStringAsFixed(2)}%',
               style: const TextStyle(fontSize: 20),
             ),
           ],
@@ -137,7 +134,7 @@ class _InterestReturnState extends State<InterestReturn> {
 
   Widget getFormulaImage() {
     return Image.asset(
-      'assets/formula/TIR_tasa_interna_retorno.jpg', // Corregir el nombre de la imagen si es necesario
+      'assets/formula/TIR_tasa_interna_retorno.jpg',
       width: 300,
       height: 200,
     );
@@ -147,8 +144,8 @@ class _InterestReturnState extends State<InterestReturn> {
     double tirEstimate = 0.01; // Estimación inicial de la TIR más conservadora
     const int maxIterations = 10000;
     const double tolerance = 1e-4;
-    double van = 0;
-    double vanDerivative = 0;
+    double van;
+    double vanDerivative;
 
     for (int iteration = 0; iteration < maxIterations; iteration++) {
       van = 0;
@@ -159,7 +156,8 @@ class _InterestReturnState extends State<InterestReturn> {
             cashFlows[period] / pow(1 + tirEstimate, period);
         van += discountedCashFlow;
         if (period > 0) {
-          vanDerivative += -period * discountedCashFlow / (1 + tirEstimate);
+          vanDerivative += -period * cashFlows[period] /
+              pow(1 + tirEstimate, period + 1);
         }
       }
       if (van.abs() <= tolerance) {
