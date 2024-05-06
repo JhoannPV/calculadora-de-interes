@@ -73,6 +73,11 @@ class Home extends StatelessWidget {
                 title: "Gradientes",
                 icon: Icons.gradient_rounded,
               ),
+              ButtonOperation(
+                route: "/amort_cap_systems",
+                title: "Sistemas de Amortización y Capitalización",
+                icon: Icons.money_rounded,
+              ),
             ],
           )
         ],
