@@ -83,7 +83,7 @@ class _TazaInteresState extends State<TazaInteres> {
                   controller: controller,
                   decoration: const InputDecoration(
                     labelText: 'Flujo de efectivo',
-                    hintText: 'Ingresar el flujo de efectivo',
+                    hintText: 'Ingresar el flujo de efectivo ',
                   ),
                   keyboardType: TextInputType.number,
                 ),
