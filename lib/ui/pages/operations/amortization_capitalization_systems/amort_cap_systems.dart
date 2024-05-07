@@ -15,7 +15,6 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
   TextEditingController deudaInicialController = TextEditingController();
   TextEditingController tasaInteresController = TextEditingController();
   TextEditingController cuotasController = TextEditingController();
-  int optionAmorCap = 0;
   int optionTypeAmort = 0;
   bool isCalculated = false;
 
@@ -62,43 +61,15 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                 SizedBox(height: 20),
               ],
             ),
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 30,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    optionAmorCap = index;
-                  });
-                },
-              ),
-              items: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_left),
-                    Text('Amortización',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    Icon(Icons.arrow_right),
-                  ],
+            const SizedBox(height: 20),
+            ExpansionTile(
+              title: const Text('Fórmula'),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: getFormula(optionTypeAmort),
                 ),
-                /* const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.arrow_left),
-                    Text('Capitalización',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
-                    Icon(Icons.arrow_right),
-                  ],
-                ), */
-              ].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return i;
-                  },
-                );
-              }).toList(),
+              ],
             ),
             CarouselSlider(
               options: CarouselOptions(
@@ -116,7 +87,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                     Icon(Icons.arrow_left),
                     Text('Sistema Francés',
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     Icon(Icons.arrow_right),
                   ],
                 ),
@@ -126,7 +97,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                     Icon(Icons.arrow_left),
                     Text('Sistema Alemán',
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     Icon(Icons.arrow_right),
                   ],
                 ),
@@ -136,7 +107,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                     Icon(Icons.arrow_left),
                     Text('Sistema Americano',
                         style: TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold)),
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     Icon(Icons.arrow_right),
                   ],
                 ),
@@ -252,11 +223,9 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                                         backgroundColor:
                                             const Color(0xFF013542)),
                                     onPressed: () {
-                                      if (_keyForm.currentState!.validate()) {
-                                        setState(() {
-                                          isCalculated = false;
-                                        });
-                                      }
+                                      setState(() {
+                                        isCalculated = false;
+                                      });
                                     },
                                     child: const Text('Ocultar',
                                         style: TextStyle(color: Colors.white)),
@@ -269,9 +238,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                     if (isCalculated)
                       Column(
                         children: [
-                          optionAmorCap == 0 &&
-                                  optionTypeAmort == 0 &&
-                                  isCalculated
+                          optionTypeAmort == 0 && isCalculated
                               ? SistemaFrances(
                                   deudaInicial:
                                       double.parse(deudaInicialController.text),
@@ -280,9 +247,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                                   typeofinterest: selectedTypeofinterest,
                                   cuotas: int.parse(cuotasController.text),
                                 )
-                              : optionAmorCap == 0 &&
-                                      optionTypeAmort == 1 &&
-                                      isCalculated
+                              : optionTypeAmort == 1 && isCalculated
                                   ? SistemaAleman(
                                       deudaInicial: double.parse(
                                           deudaInicialController.text),
@@ -291,9 +256,7 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
                                       typeofinterest: selectedTypeofinterest,
                                       cuotas: int.parse(cuotasController.text),
                                     )
-                                  : optionAmorCap == 0 &&
-                                          optionTypeAmort == 2 &&
-                                          isCalculated
+                                  : optionTypeAmort == 2 && isCalculated
                                       ? SistemaAmericano(
                                           deudaInicial: double.parse(
                                               deudaInicialController.text),
@@ -313,5 +276,36 @@ class _AmortCapSystemsState extends State<AmortCapSystems> {
         ),
       )),
     );
+  }
+
+  Widget getFormula(int optionTypeAmort) {
+    switch (optionTypeAmort) {
+      case 0:
+        return Column(
+          children: [
+            const Text('Sistema Francés',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Image.asset('assets/formula/SistemaFrances.png'),
+          ],
+        );
+      case 1:
+        return Column(
+          children: [
+            const Text('Sistema Alemán',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Image.asset('assets/formula/SistemaAleman.png'),
+          ],
+        );
+      case 2:
+        return Column(
+          children: [
+            const Text('Sistema Americano',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Image.asset('assets/formula/SistemaAmericano.png'),
+          ],
+        );
+      default:
+        return const SizedBox(); // Retorna un widget vacío si la opción no es válida
+    }
   }
 }
