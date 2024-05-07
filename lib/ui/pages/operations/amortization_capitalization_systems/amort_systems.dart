@@ -90,35 +90,45 @@ class _SistemaFrancesState extends State<SistemaFrances> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
+    double totalPagado = tablaAmortizacion.fold(
+        0, (previousValue, element) => previousValue + element['cuotaValor']);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
-        columns: const [
-          DataColumn(
-              label:
-                  Text('Cuota', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Valor de la Cuota',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Interés',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Amortización',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Deuda Restante',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+      child: Column(
+        children: [
+          SelectableText(
+            'Total pagado: ${totalPagado.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          DataTable(
+            columns: const [
+              DataColumn(
+                  label: Text('Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Valor de la Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Interés',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Amortización',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Deuda Restante',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+            ],
+            rows: tablaAmortizacion.map((fila) {
+              return DataRow(cells: [
+                DataCell(Text(fila['cuota'].toString())),
+                DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
+                DataCell(Text(fila['interes'].toStringAsFixed(2))),
+                DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
+                DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
+              ]);
+            }).toList(),
+          ),
         ],
-        rows: tablaAmortizacion.map((fila) {
-          return DataRow(cells: [
-            DataCell(Text(fila['cuota'].toString())),
-            DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
-            DataCell(Text(fila['interes'].toStringAsFixed(2))),
-            DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
-            DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
-          ]);
-        }).toList(),
       ),
     );
   }
@@ -206,36 +216,45 @@ class _SistemaAlemanState extends State<SistemaAleman> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
-
+    double totalPagado = tablaAmortizacion.fold(
+        0, (previousValue, element) => previousValue + element['cuotaValor']);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
-        columns: const [
-          DataColumn(
-              label:
-                  Text('Cuota', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Valor de la Cuota',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Interés',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Amortización',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Deuda Restante',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+      child: Column(
+        children: [
+          SelectableText(
+            'Total pagado: ${totalPagado.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          DataTable(
+            columns: const [
+              DataColumn(
+                  label: Text('Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Valor de la Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Interés',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Amortización',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Deuda Restante',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+            ],
+            rows: tablaAmortizacion.map((fila) {
+              return DataRow(cells: [
+                DataCell(Text(fila['cuota'].toString())),
+                DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
+                DataCell(Text(fila['interes'].toStringAsFixed(2))),
+                DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
+                DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
+              ]);
+            }).toList(),
+          ),
         ],
-        rows: tablaAmortizacion.map((fila) {
-          return DataRow(cells: [
-            DataCell(Text(fila['cuota'].toString())),
-            DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
-            DataCell(Text(fila['interes'].toStringAsFixed(2))),
-            DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
-            DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
-          ]);
-        }).toList(),
       ),
     );
   }
@@ -323,36 +342,45 @@ class _SistemaAmericanoState extends State<SistemaAmericano> {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> tablaAmortizacion = calcularTablaAmortizacion();
-
+    double totalPagado = tablaAmortizacion.fold(
+        0, (previousValue, element) => previousValue + element['cuotaValor']);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
-        columns: const [
-          DataColumn(
-              label:
-                  Text('Cuota', style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Valor de la Cuota',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Interés',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Amortización',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
-          DataColumn(
-              label: Text('Deuda Restante',
-                  style: TextStyle(fontWeight: FontWeight.bold))),
+      child: Column(
+        children: [
+          SelectableText(
+            'Total pagado: ${totalPagado.toStringAsFixed(2)}',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          DataTable(
+            columns: const [
+              DataColumn(
+                  label: Text('Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Valor de la Cuota',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Interés',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Amortización',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(
+                  label: Text('Deuda Restante',
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+            ],
+            rows: tablaAmortizacion.map((fila) {
+              return DataRow(cells: [
+                DataCell(Text(fila['cuota'].toString())),
+                DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
+                DataCell(Text(fila['interes'].toStringAsFixed(2))),
+                DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
+                DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
+              ]);
+            }).toList(),
+          ),
         ],
-        rows: tablaAmortizacion.map((fila) {
-          return DataRow(cells: [
-            DataCell(Text(fila['cuota'].toString())),
-            DataCell(Text(fila['cuotaValor'].toStringAsFixed(2))),
-            DataCell(Text(fila['interes'].toStringAsFixed(2))),
-            DataCell(Text(fila['amortizacion'].toStringAsFixed(2))),
-            DataCell(Text(fila['deudaRestante'].toStringAsFixed(2))),
-          ]);
-        }).toList(),
       ),
     );
   }
